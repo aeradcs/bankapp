@@ -12,10 +12,9 @@ import java.util.Optional;
 
 public interface ClientRepository extends JpaRepository<Client, Long> {
 
-    Client findById(long id);
 
 
 
-    List<Client> findByFullName(String fullName);
+
 
 }

@@ -1,27 +1,30 @@
 package com.databases.bankapp.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.annotations.Table;
+
+import javax.persistence.*;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 @Entity
-
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    //@Column(name = "full_name", nullable = false)
     String fullName;
-    Calendar dateOfBirth;
+
+    GregorianCalendar dateOfBirth;
     String gender;
     String jobStatus;
     String phoneNumber;
 
+    public enum GenderEnum{мужской, женский};
+    public enum JobStatusEnum{работает, безработный};
     protected Client(){}
 
-    public Client(String fullName, Calendar dateOfBirth, String gender, String jobStatus, String phoneNumber)
+    public Client(String fullName, GregorianCalendar dateOfBirth, String gender, String jobStatus, String phoneNumber)
     {
         this.fullName = fullName;
         this.dateOfBirth = dateOfBirth;
@@ -39,8 +42,10 @@ public class Client {
         return fullName;
     }
 
-    public Calendar getDateOfBirth() {
-        return dateOfBirth;
+    public String getDateOfBirth() {
+        return String.valueOf(dateOfBirth.get(Calendar.DAY_OF_MONTH)) + "." +
+                String.valueOf(dateOfBirth.get(Calendar.MONTH) + 1) + "." +
+                String.valueOf(dateOfBirth.get(Calendar.YEAR));
     }
 
     public String getGender() {
@@ -58,6 +63,6 @@ public class Client {
     @Override
     public String toString()
     {
-        return String.format("Client[id = %d fullname = %s]");
+        return String.format(" id = %d fullname = %s ", this.id, this.fullName);
     }
 }
