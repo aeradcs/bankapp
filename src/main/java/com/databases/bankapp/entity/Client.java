@@ -1,31 +1,32 @@
 package com.databases.bankapp.entity;
 
-import org.hibernate.annotations.Table;
-
 import javax.persistence.*;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.time.LocalDate;
+import java.util.*;
 
 @Entity
 public class Client {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "client_sequence", sequenceName = "client_sequence")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "client_sequence")
     private Long id;
 
     //@Column(name = "full_name", nullable = false)
-    String fullName;
+    private String fullName;
+    private LocalDate dateOfBirth;
+    private String gender;
+    private String jobStatus;
+    private String phoneNumber;
 
-    GregorianCalendar dateOfBirth;
-    String gender;
-    String jobStatus;
-    String phoneNumber;
+    //public enum GenderEnum {мужской, женский};
 
-    public enum GenderEnum{мужской, женский};
-    public enum JobStatusEnum{работает, безработный};
-    protected Client(){}
+    //public enum JobStatusEnum {работает, безработный};
 
-    public Client(String fullName, GregorianCalendar dateOfBirth, String gender, String jobStatus, String phoneNumber)
-    {
+    public Client() {
+    }
+
+    public Client(String fullName, LocalDate dateOfBirth, String gender, String jobStatus, String phoneNumber) {
         this.fullName = fullName;
         this.dateOfBirth = dateOfBirth;
         this.gender = gender;
@@ -38,31 +39,54 @@ public class Client {
         return id;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getFullName() {
         return fullName;
     }
 
-    public String getDateOfBirth() {
-        return String.valueOf(dateOfBirth.get(Calendar.DAY_OF_MONTH)) + "." +
-                String.valueOf(dateOfBirth.get(Calendar.MONTH) + 1) + "." +
-                String.valueOf(dateOfBirth.get(Calendar.YEAR));
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 
     public String getGender() {
         return gender;
     }
 
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
     public String getJobStatus() {
         return jobStatus;
+    }
+
+    public void setJobStatus(String jobStatus) {
+        this.jobStatus = jobStatus;
     }
 
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
     @Override
-    public String toString()
-    {
+    public String toString() {
         return String.format(" id = %d fullname = %s ", this.id, this.fullName);
     }
+
+
 }
