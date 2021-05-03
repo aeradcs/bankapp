@@ -11,13 +11,15 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Calendar;
 
 
-@Route("")
+@Route(value="clients", layout = MainView.class)
+@PageTitle("Clients")
 public class ClientView extends VerticalLayout {
     private final Grid<Client> grid;
     private final ClientService clientService;
@@ -27,7 +29,7 @@ public class ClientView extends VerticalLayout {
     {
         this.clientService = clientService;
         this.grid = new Grid<>(Client.class);
-        addClassName("list-view-client");
+        addClassName("client-view");
         setSizeFull();
         configureGrid();
 
