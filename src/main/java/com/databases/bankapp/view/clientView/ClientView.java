@@ -19,7 +19,7 @@ import java.util.Calendar;
 
 
 @Route(value="clients", layout = MainView.class)
-@PageTitle("Clients")
+@PageTitle("Bank App | Clients")
 public class ClientView extends VerticalLayout {
     private final Grid<Client> grid;
     private final ClientService clientService;

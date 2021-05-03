@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 @Entity
+@Table(name = "client")
 public class Client {
     @Id
     //@GeneratedValue(strategy = GenerationType.AUTO)
@@ -12,7 +13,6 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "client_sequence")
     private Long id;
 
-    //@Column(name = "full_name", nullable = false)
     private String fullName;
     private LocalDate dateOfBirth;
     private String gender;
@@ -85,7 +85,7 @@ public class Client {
 
     @Override
     public String toString() {
-        return String.format(" id = %d fullname = %s ", this.id, this.fullName);
+        return String.format("%d ", this.id);
     }
 
 

@@ -47,7 +47,7 @@ public class MainView extends AppLayout {
         RouterLink clientRL = new RouterLink("Clients", ClientView.class);
         clientRL.setHighlightCondition(HighlightConditions.sameLocation());
 
-        RouterLink investmentAccountRL = new RouterLink("Investment Account", InvestmentAccountView.class);
+        RouterLink investmentAccountRL = new RouterLink("Investment Accounts", InvestmentAccountView.class);
         investmentAccountRL.setHighlightCondition(HighlightConditions.sameLocation());
 
         addToDrawer(new VerticalLayout(clientRL, investmentAccountRL));
