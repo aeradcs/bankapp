@@ -28,7 +28,7 @@ public class InvestmentAccountService {
 
     public void save(InvestmentAccount investmentAccount) {
         if (investmentAccount == null) {
-            System.out.println("NULL CLIENT WHILE SAVE");
+            System.out.println("NULL INVEST ACCOUNT WHILE SAVE");
             return;
         }
         investmentAccountRepository.save(investmentAccount);

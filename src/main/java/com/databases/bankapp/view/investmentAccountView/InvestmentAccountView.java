@@ -6,8 +6,10 @@ import com.databases.bankapp.service.ClientService;
 import com.databases.bankapp.service.InvestmentAccountService;
 import com.databases.bankapp.view.MainView;
 import com.databases.bankapp.view.clientView.ClientForm;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -20,10 +22,11 @@ import java.time.LocalDate;
 public class InvestmentAccountView extends VerticalLayout {
 
     private final Grid<InvestmentAccount> grid;
-    private final InvestmentAccountService investmentAccountService;
-    //private final InvestmentAccountForm investmentAccountForm;
+    private InvestmentAccountService investmentAccountService;
+    private final InvestmentAccountForm investmentAccountForm;
 
-    public InvestmentAccountView(InvestmentAccountService investmentAccountService)
+    public InvestmentAccountView(InvestmentAccountService investmentAccountService,
+                                 ClientService clientService)
     {
         this.investmentAccountService = investmentAccountService;
         this.grid = new Grid<>(InvestmentAccount.class);
@@ -31,32 +34,73 @@ public class InvestmentAccountView extends VerticalLayout {
         setSizeFull();
         configureGrid();
 
-        //clientForm = new ClientForm();
-        /*clientForm.addListener(ClientForm.SaveEvent.class, this::saveClient);
-        clientForm.addListener(ClientForm.DeleteEvent.class, this::deleteClient);
-        clientForm.addListener(ClientForm.CloseEvent.class, e -> closeEditor());*/
+        investmentAccountForm = new InvestmentAccountForm(clientService.findAll());
+        investmentAccountForm.addListener(InvestmentAccountForm.SaveEvent.class, this::saveInvestAccount);
+        investmentAccountForm.addListener(InvestmentAccountForm.DeleteEvent.class, this::deleteInvestAccount);
+        investmentAccountForm.addListener(InvestmentAccountForm.CloseEvent.class, e -> closeEditor());
 
-        Div contentWindow = new Div(/*clientForm,*/ grid);
+        Div contentWindow = new Div(investmentAccountForm, grid);
         contentWindow.addClassName("contentWindow");
         contentWindow.setSizeFull();
 
-        add(/*getToolbar(),*/ contentWindow);
+        add(getToolbar(), contentWindow);
+
         updateList();
 
-        //closeEditor();
+        closeEditor();
 
+    }
+
+    private void deleteInvestAccount(InvestmentAccountForm.DeleteEvent event) {
+        investmentAccountService.delete(event.getInvestmentAccount());
+        updateList();
+        closeEditor();
+    }
+
+    private void saveInvestAccount(InvestmentAccountForm.SaveEvent event) {
+        investmentAccountService.save(event.getInvestmentAccount());
+        updateList();
+        closeEditor();
+    }
+
+    private HorizontalLayout getToolbar() {
+        Button addInvestAccountButton = new Button("Add Investment Account");
+        addInvestAccountButton.addClickListener(click -> addInvestAccount());
+
+        HorizontalLayout toolbar = new HorizontalLayout(addInvestAccountButton);
+        toolbar.addClassName("toolbar");
+        return toolbar;
+    }
+
+    void addInvestAccount() {
+        grid.asSingleSelect().clear();
+        editInvestAccount(new InvestmentAccount());
     }
 
     private void configureGrid() {
         grid.addClassName("invest-account-grid");
         grid.setSizeFull();
-        grid.setColumns("id", "dateOfOpening", "moneySum");
-        grid.addColumn(InvestmentAccount::getClient).setHeader("Client Id");
+        grid.setColumns("id", "dateOfOpening", "moneySum", "client");
 
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
 
-        /*grid.asSingleSelect().addValueChangeListener(event ->
-                editClient(event.getValue()));*/
+        grid.asSingleSelect().addValueChangeListener(event ->
+                editInvestAccount(event.getValue()));
+    }
+    public void editInvestAccount(InvestmentAccount investmentAccount) {
+        if (investmentAccount == null) {
+            closeEditor();
+        } else {
+            investmentAccountForm.setInvestmentAccount(investmentAccount);
+            investmentAccountForm.setVisible(true);
+            addClassName("editing");
+        }
+    }
+
+    private void closeEditor() {
+        investmentAccountForm.setInvestmentAccount(null);
+        investmentAccountForm.setVisible(false);
+        removeClassName("editing");
     }
 
     private void updateList() {

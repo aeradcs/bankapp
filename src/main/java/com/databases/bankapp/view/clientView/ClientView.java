@@ -62,7 +62,7 @@ public class ClientView extends VerticalLayout {
     }
 
     private HorizontalLayout getToolbar() {
-        Button addClientButton = new Button("Add client");
+        Button addClientButton = new Button("Add Сlient");
         addClientButton.addClickListener(click -> addClient());
 
         HorizontalLayout toolbar = new HorizontalLayout(addClientButton);

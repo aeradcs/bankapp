@@ -1,4 +1,113 @@
 package com.databases.bankapp.view.investmentAccountView;
 
-public class InvestmentAccountForm {
+import com.databases.bankapp.entity.Client;
+import com.databases.bankapp.entity.InvestmentAccount;
+import com.databases.bankapp.view.clientView.ClientForm;
+import com.vaadin.flow.component.ComponentEvent;
+import com.vaadin.flow.component.ComponentEventListener;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.datepicker.DatePicker;
+import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.data.binder.ValidationException;
+import com.vaadin.flow.shared.Registration;
+
+import java.util.List;
+
+public class InvestmentAccountForm extends FormLayout {
+    ComboBox<Client> client = new ComboBox<>("client");
+    DatePicker dateOfOpening = new DatePicker();
+    TextField moneySum = new TextField("money sum");
+
+    Button save = new Button("save");
+    Button delete = new Button("delete");
+    Button close = new Button("cancel");
+
+    Binder<InvestmentAccount> binder = new Binder<>(InvestmentAccount.class);
+    InvestmentAccount investmentAccount;
+
+    public InvestmentAccountForm(List<Client> clients) {
+        addClassName("invest-account-form");
+        dateOfOpening.setLabel("date of opening");
+
+        /*moneySum.setPattern("[0-9]*");
+        moneySum.setPreventInvalidInput(true);
+        moneySum.setMaxLength(14);*/
+
+        binder.bindInstanceFields(this);
+
+        client.setItems(clients);
+        client.setItemLabelGenerator(Client::getIdStr);
+        add(dateOfOpening, moneySum, client, createButtonsLayout());
+
+    }
+
+    public void setInvestmentAccount(InvestmentAccount investmentAccount){
+        this.investmentAccount = investmentAccount;
+        binder.readBean(investmentAccount);
+    }
+
+    private HorizontalLayout createButtonsLayout() {
+        save.addThemeVariants(ButtonVariant.LUMO_SUCCESS);
+        delete.addThemeVariants(ButtonVariant.LUMO_ERROR);
+        close.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
+
+        save.addClickListener(event -> validateAndSave());
+        delete.addClickListener(event -> fireEvent(new DeleteEvent(this, investmentAccount)));
+        close.addClickListener(event -> fireEvent(new CloseEvent(this)));
+
+        binder.addStatusChangeListener(e -> save.setEnabled(binder.isValid()));
+
+        return new HorizontalLayout(save, delete, close);
+    }
+
+    private void validateAndSave() {
+        try {
+            binder.writeBean(investmentAccount);
+            fireEvent(new SaveEvent(this, investmentAccount));
+        } catch (ValidationException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static abstract class InvestAccountFormEvent extends ComponentEvent<InvestmentAccountForm> {
+        private InvestmentAccount investmentAccount;
+
+        protected InvestAccountFormEvent(InvestmentAccountForm source, InvestmentAccount account) {
+            super(source, false);
+            this.investmentAccount = account;
+        }
+
+        public InvestmentAccount getInvestmentAccount() {
+            return investmentAccount;
+        }
+    }
+
+    public static class SaveEvent extends InvestAccountFormEvent {
+        SaveEvent(InvestmentAccountForm source, InvestmentAccount account) {
+            super(source, account);
+        }
+    }
+
+    public static class DeleteEvent extends InvestAccountFormEvent {
+        DeleteEvent(InvestmentAccountForm source, InvestmentAccount account) {
+            super(source, account);
+        }
+
+    }
+
+    public static class CloseEvent extends InvestAccountFormEvent {
+        CloseEvent(InvestmentAccountForm source) {
+            super(source, null);
+        }
+    }
+
+    public <T extends ComponentEvent<?>> Registration addListener(Class<T> eventType,
+                                                                  ComponentEventListener<T> listener) {
+        return getEventBus().addListener(eventType, listener);
+    }
 }

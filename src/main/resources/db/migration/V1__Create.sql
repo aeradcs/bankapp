@@ -11,7 +11,7 @@ create table if not exists investment_account(
     id bigserial primary key,
     client_id bigserial not null ,
     date_of_opening date not null,
-    money_sum double precision not null,
-    constraint fk_id_client_in_invest_account_table foreign key (client_id) references client (id)
+    money_sum text not null,
+    constraint fk_id_client_in_invest_account_table foreign key(client_id) references client(id)
     );
 

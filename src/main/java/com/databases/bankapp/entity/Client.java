@@ -5,10 +5,8 @@ import java.time.LocalDate;
 import java.util.*;
 
 @Entity
-@Table(name = "client")
 public class Client {
     @Id
-    //@GeneratedValue(strategy = GenerationType.AUTO)
     @SequenceGenerator(name = "client_sequence", sequenceName = "client_sequence")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "client_sequence")
     private Long id;
@@ -19,19 +17,35 @@ public class Client {
     private String jobStatus;
     private String phoneNumber;
 
-    //public enum GenderEnum {мужской, женский};
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "client")
+    private Set<InvestmentAccount> investmentAccounts = new HashSet<>();
 
-    //public enum JobStatusEnum {работает, безработный};
+
 
     public Client() {
     }
 
-    public Client(String fullName, LocalDate dateOfBirth, String gender, String jobStatus, String phoneNumber) {
+    public Client(Long id, String fullName, LocalDate dateOfBirth, String gender, String jobStatus, String phoneNumber, Set<InvestmentAccount> investmentAccounts) {
+        this.id = id;
         this.fullName = fullName;
         this.dateOfBirth = dateOfBirth;
         this.gender = gender;
         this.jobStatus = jobStatus;
         this.phoneNumber = phoneNumber;
+        this.investmentAccounts = investmentAccounts;
+    }
+
+    public Set<InvestmentAccount> getInvestmentAccounts() {
+        return investmentAccounts;
+    }
+
+    public void setInvestmentAccounts(Set<InvestmentAccount> investmentAccounts) {
+        if(investmentAccounts != null){
+            investmentAccounts.forEach(el->{
+                el.setClient(this);
+            });
+        }
+        this.investmentAccounts = investmentAccounts;
 
     }
 
@@ -39,54 +53,60 @@ public class Client {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getFullName() {
         return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
     }
 
     public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
     public String getGender() {
         return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
     }
 
     public String getJobStatus() {
         return jobStatus;
     }
 
-    public void setJobStatus(String jobStatus) {
-        this.jobStatus = jobStatus;
-    }
-
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public void setJobStatus(String jobStatus) {
+        this.jobStatus = jobStatus;
     }
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
+
     @Override
     public String toString() {
         return String.format("%d ", this.id);
     }
 
+
+
+    public String getIdStr(){
+        return id.toString();
+    }
 
 }

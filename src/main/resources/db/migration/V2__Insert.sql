@@ -16,7 +16,7 @@ insert into client values(15, 'Кузнецова София Данииловн�
 insert into client values(16, 'Кузнецова Милана Михайловна', '1997-12-12', 'женский', 'работает', '8-888-888-88-15');
 insert into client values(17, 'Кузьмина Анастасия Артёмовна', '1997-12-12', 'женский', 'работает', '8-888-888-88-16');
 insert into client values(18, 'Михайлова Вероника Павловна', '1991-12-12', 'женский', 'безработный', '8-888-888-88-17');
-insert into client values(19, 'Назарова Дарья Ярославовна', '19929-12-12', 'женский', 'работает', '8-888-888-88-18');
+insert into client values(19, 'Назарова Дарья Ярославовна', '1999-12-12', 'женский', 'работает', '8-888-888-88-18');
 insert into client values(20, 'Павлов Максим Степанович', '1992-12-12', 'мужской', 'работает', '8-888-888-88-19');
 insert into client values(21, 'Попова Ева Матвеевна', '1978-12-12', 'женский', 'работает', '8-888-888-88-20');
 insert into client values(22, 'Романов Александр Богданович', '1975-12-12', 'мужской', 'безработный', '8-888-888-88-21');
@@ -31,26 +31,21 @@ insert into client values(30, 'Фетисов Дмитрий Владимиро�
 insert into client values(31, 'Черкасов Артём Алексеевич', '1987-12-12', 'мужской', 'работает', '8-888-888-88-30');
 
 
-insert into investment_account values(1, 1, '2020-12-12', 1000000.0);
-insert into investment_account values(2, 2, '2020-12-12', 1000000.0);
-insert into investment_account values(3, 3, '2020-12-12', 1000000.0);
-insert into investment_account values(4, 4, '2020-12-12', 1000000.0);
-insert into investment_account values(5, 5, '2020-12-12', 1000000.0);
-insert into investment_account values(6, 6, '2020-12-12', 200000.0);
-insert into investment_account values(7, 7, '2020-12-12', 200000.0);
-insert into investment_account values(8, 8, '2020-12-12', 200000.0);
-insert into investment_account values(9, 9, '2020-12-12', 200000.0);
-insert into investment_account values(10, 10, '2020-12-12', 200000.0);
-insert into investment_account values(11, 11, '2019-12-12', 500.0);
-insert into investment_account values(12, 12, '2019-12-12', 500.0);
-insert into investment_account values(13, 13, '2019-12-12', 500.0);
-insert into investment_account values(14, 14, '2019-12-12', 500.0);
-insert into investment_account values(15, 15, '2019-12-12', 500.0);
-insert into investment_account values(16, 16, '2019-12-12', 50000.0);
-insert into investment_account values(17, 17, '2019-12-12', 50000.0);
-insert into investment_account values(18, 18, '2019-12-12', 50000.0);
-insert into investment_account values(19, 19, '2019-12-12', 50000.0);
-insert into investment_account values(20, 20, '2019-12-12', 50000.0);
+insert into investment_account values(1, 1, '2020-12-12', '1000000');
+insert into investment_account values(2, 2, '2020-12-12', '1000000');
+insert into investment_account values(3, 3, '2020-12-12', '1000000');
+insert into investment_account values(4, 4, '2020-12-12', '1000000');
+insert into investment_account values(5, 5, '2020-12-12', '1000000');
+insert into investment_account values(6, 6, '2020-12-12', '200000');
+insert into investment_account values(7, 7, '2020-12-12', '200000');
+insert into investment_account values(8, 8, '2020-12-12', '200000');
+insert into investment_account values(9, 9, '2020-12-12', '200000');
+insert into investment_account values(10, 10, '2020-12-12', '200000');
+insert into investment_account values(11, 11, '2019-12-12', '500');
+insert into investment_account values(12, 12, '2019-12-12', '500');
+insert into investment_account values(13, 13, '2019-12-12', '500');
+insert into investment_account values(14, 14, '2019-12-12', '500');
+insert into investment_account values(15, 15, '2019-12-12', '500');
 
 
 
