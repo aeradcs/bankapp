@@ -2,6 +2,7 @@ package com.databases.bankapp.view.investmentAccountView;
 
 import com.databases.bankapp.entity.Client;
 import com.databases.bankapp.entity.InvestmentAccount;
+import com.databases.bankapp.entity.Share;
 import com.databases.bankapp.view.clientView.ClientForm;
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
@@ -16,6 +17,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.shared.Registration;
+import org.vaadin.gatanaso.MultiselectComboBox;
 
 import java.util.List;
 
@@ -23,33 +25,34 @@ public class InvestmentAccountForm extends FormLayout {
     ComboBox<Client> client = new ComboBox<>("client");
     DatePicker dateOfOpening = new DatePicker();
     NumberField moneySum = new NumberField("money sum");
+    MultiselectComboBox<Share> share = new MultiselectComboBox<>("share");
 
     Button save = new Button("save");
     Button delete = new Button("delete");
     Button close = new Button("cancel");
 
     Binder<InvestmentAccount> binder = new Binder<>(InvestmentAccount.class);
-    InvestmentAccount investmentAccount;
+    //InvestmentAccount investmentAccount;
 
-    public InvestmentAccountForm(List<Client> clients) {
+    public InvestmentAccountForm(List<Client> clients, List<Share> shares) {
         addClassName("invest-account-form");
         dateOfOpening.setLabel("date of opening");
-
-        /*moneySum.setPattern("[0-9]*.[0-9]*");
-        moneySum.setPreventInvalidInput(true);
-        moneySum.setMaxLength(14);*/
 
         binder.bindInstanceFields(this);
 
         client.setItems(clients);
         client.setItemLabelGenerator(Client::getIdStr);
-        add(dateOfOpening, moneySum, client, createButtonsLayout());
+
+        share.setItems(shares);
+        share.setItemLabelGenerator(Share::getNameOfCompany);
+
+        add(dateOfOpening, moneySum, client, share, createButtonsLayout());
 
     }
 
     public void setInvestmentAccount(InvestmentAccount investmentAccount){
-        this.investmentAccount = investmentAccount;
-        binder.readBean(investmentAccount);
+        //this.investmentAccount = investmentAccount;
+        binder.setBean(investmentAccount);
     }
 
     private HorizontalLayout createButtonsLayout() {
@@ -58,7 +61,7 @@ public class InvestmentAccountForm extends FormLayout {
         close.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
 
         save.addClickListener(event -> validateAndSave());
-        delete.addClickListener(event -> fireEvent(new DeleteEvent(this, investmentAccount)));
+        delete.addClickListener(event -> fireEvent(new DeleteEvent(this, binder.getBean())));
         close.addClickListener(event -> fireEvent(new CloseEvent(this)));
 
         binder.addStatusChangeListener(e -> save.setEnabled(binder.isValid()));
@@ -67,11 +70,14 @@ public class InvestmentAccountForm extends FormLayout {
     }
 
     private void validateAndSave() {
-        try {
+        /*try {
             binder.writeBean(investmentAccount);
             fireEvent(new SaveEvent(this, investmentAccount));
         } catch (ValidationException e) {
             e.printStackTrace();
+        }*/
+        if(binder.isValid()){
+            fireEvent(new InvestmentAccountForm.SaveEvent(this, binder.getBean()));
         }
     }
 

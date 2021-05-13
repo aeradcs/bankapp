@@ -18,6 +18,14 @@ public class ShareService {
         return shareRepository.findAll();
     }
 
+    public List<Share> findAll(String stringFilter) {
+        if (stringFilter == null || stringFilter.isEmpty()) {
+            return shareRepository.findAll();
+        } else {
+            return shareRepository.search(stringFilter);
+        }
+    }
+
     public long count() {
         return shareRepository.count();
     }

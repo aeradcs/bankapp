@@ -4,6 +4,7 @@ import com.databases.bankapp.entity.Client;
 import com.databases.bankapp.entity.InvestmentAccount;
 import com.databases.bankapp.service.ClientService;
 import com.databases.bankapp.service.InvestmentAccountService;
+import com.databases.bankapp.service.ShareService;
 import com.databases.bankapp.view.MainView;
 import com.databases.bankapp.view.clientView.ClientForm;
 import com.vaadin.flow.component.button.Button;
@@ -11,6 +12,8 @@ import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
@@ -25,8 +28,11 @@ public class InvestmentAccountView extends VerticalLayout {
     private InvestmentAccountService investmentAccountService;
     private final InvestmentAccountForm investmentAccountForm;
 
+    private final TextField filterText = new TextField();
+
     public InvestmentAccountView(InvestmentAccountService investmentAccountService,
-                                 ClientService clientService)
+                                 ClientService clientService,
+                                 ShareService shareService)
     {
         this.investmentAccountService = investmentAccountService;
         this.grid = new Grid<>(InvestmentAccount.class);
@@ -34,7 +40,7 @@ public class InvestmentAccountView extends VerticalLayout {
         setSizeFull();
         configureGrid();
 
-        investmentAccountForm = new InvestmentAccountForm(clientService.findAll());
+        investmentAccountForm = new InvestmentAccountForm(clientService.findAll(), shareService.findAll());
         investmentAccountForm.addListener(InvestmentAccountForm.SaveEvent.class, this::saveInvestAccount);
         investmentAccountForm.addListener(InvestmentAccountForm.DeleteEvent.class, this::deleteInvestAccount);
         investmentAccountForm.addListener(InvestmentAccountForm.CloseEvent.class, e -> closeEditor());
@@ -64,11 +70,17 @@ public class InvestmentAccountView extends VerticalLayout {
     }
 
     private HorizontalLayout getToolbar() {
+        filterText.setPlaceholder("Filter by ...");
+        filterText.setClearButtonVisible(true);
+        filterText.setValueChangeMode(ValueChangeMode.LAZY);
+        filterText.addValueChangeListener(e -> updateList());
+
         Button addInvestAccountButton = new Button("Add Investment Account");
         addInvestAccountButton.addClickListener(click -> addInvestAccount());
 
-        HorizontalLayout toolbar = new HorizontalLayout(addInvestAccountButton);
+        HorizontalLayout toolbar = new HorizontalLayout(filterText, addInvestAccountButton);
         toolbar.addClassName("toolbar");
+
         return toolbar;
     }
 
@@ -80,13 +92,17 @@ public class InvestmentAccountView extends VerticalLayout {
     private void configureGrid() {
         grid.addClassName("invest-account-grid");
         grid.setSizeFull();
+
         grid.setColumns("id", "dateOfOpening", "moneySum", "client");
+
+        grid.addColumn(InvestmentAccount::getSharesStr).setHeader("Shares");
 
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
 
         grid.asSingleSelect().addValueChangeListener(event ->
                 editInvestAccount(event.getValue()));
     }
+
     public void editInvestAccount(InvestmentAccount investmentAccount) {
         if (investmentAccount == null) {
             closeEditor();
@@ -104,7 +120,7 @@ public class InvestmentAccountView extends VerticalLayout {
     }
 
     private void updateList() {
-        grid.setItems(investmentAccountService.findAll());
+        grid.setItems(investmentAccountService.findAll(filterText.getValue()));
 
     }
 

@@ -3,6 +3,7 @@ package com.databases.bankapp.entity;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 @Entity
@@ -27,16 +28,6 @@ public class InvestmentAccount {
     )
     Set<Share> shares = new HashSet<>();
 
-    public InvestmentAccount() {
-    }
-
-    public InvestmentAccount(Client client, LocalDate dateOfOpening, Double moneySum) {
-        this.client = client;
-        this.dateOfOpening = dateOfOpening;
-        this.moneySum = moneySum;
-    }
-
-
     public Long getId() {
         return id;
     }
@@ -51,6 +42,10 @@ public class InvestmentAccount {
 
     public Client getClient() {
         return client;
+    }
+
+    public Set<Share> getShares() {
+        return shares;
     }
 
     public void setId(Long id) {
@@ -69,13 +64,30 @@ public class InvestmentAccount {
         this.client = client;
     }
 
+    public void setShares(Set<Share> shares) {
+        this.shares = shares;
+    }
+
+    public String getSharesStr() {
+        StringBuilder str = new StringBuilder();
+        Iterator<Share> it = shares.iterator();
+        while (it.hasNext()) {
+            str.append(it.next().getNameOfCompany());
+            if (it.hasNext()){
+                str.append(", ");
+            }
+        }
+        return str.toString();
+    }
+
     @Override
     public String toString() {
         return "InvestmentAccount{" +
                 "id=" + id +
                 ", dateOfOpening=" + dateOfOpening +
-                ", moneySum='" + moneySum + '\'' +
+                ", moneySum=" + moneySum +
                 ", client=" + client +
+                ", shares=" + shares +
                 '}';
     }
 }
