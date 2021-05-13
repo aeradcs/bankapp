@@ -11,7 +11,7 @@ public class InvestmentAccount {
     private Long id;
 
     private LocalDate dateOfOpening;
-    private String moneySum;
+    private Double moneySum;
 
     @ManyToOne
     @JoinColumn(name = "client_id")
@@ -20,8 +20,7 @@ public class InvestmentAccount {
     public InvestmentAccount() {
     }
 
-    public InvestmentAccount(Long id, Client client, LocalDate dateOfOpening, String moneySum) {
-        this.id = id;
+    public InvestmentAccount(Client client, LocalDate dateOfOpening, Double moneySum) {
         this.client = client;
         this.dateOfOpening = dateOfOpening;
         this.moneySum = moneySum;
@@ -36,7 +35,7 @@ public class InvestmentAccount {
         return dateOfOpening;
     }
 
-    public String getMoneySum() {
+    public Double getMoneySum() {
         return moneySum;
     }
 
@@ -52,7 +51,7 @@ public class InvestmentAccount {
         this.dateOfOpening = dateOfOpening;
     }
 
-    public void setMoneySum(String moneySum) {
+    public void setMoneySum(Double moneySum) {
         this.moneySum = moneySum;
     }
 

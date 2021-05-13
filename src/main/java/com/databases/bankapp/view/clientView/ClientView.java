@@ -11,6 +11,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,10 @@ import java.util.Calendar;
 @Route(value="clients", layout = MainView.class)
 @PageTitle("Bank App | Clients")
 public class ClientView extends VerticalLayout {
+    private TextField filterByName = new TextField("filter by full name");
+    /*private TextField filterByGender = new TextField("filter by gender");
+    private TextField filterByJobStatus = new TextField("filter by job status");
+*/
     private final Grid<Client> grid;
     private final ClientService clientService;
     private final ClientForm clientForm;
@@ -31,6 +36,9 @@ public class ClientView extends VerticalLayout {
         this.grid = new Grid<>(Client.class);
         addClassName("client-view");
         setSizeFull();
+        configureFilterByName();
+        /*configureFilterByGender();
+        configureFilterByJobStatus();*/
         configureGrid();
 
         clientForm = new ClientForm();
@@ -42,12 +50,32 @@ public class ClientView extends VerticalLayout {
         contentWindow.addClassName("contentWindow");
         contentWindow.setSizeFull();
 
-        add(getToolbar(), contentWindow);
+        add(filterByName/*, filterByGender, filterByJobStatus*/, getToolbar(), contentWindow);
         updateList();
 
         closeEditor();
 
     }
+
+    private void configureFilterByName() {
+        filterByName.setPlaceholder("type name...");
+        filterByName.setClearButtonVisible(true);
+        filterByName.setValueChangeMode(ValueChangeMode.LAZY);
+        filterByName.addValueChangeListener(e -> updateList());
+    }
+
+    /*private void configureFilterByGender() {
+        filterByGender.setPlaceholder("type gender...");
+        filterByGender.setClearButtonVisible(true);
+        filterByGender.setValueChangeMode(ValueChangeMode.LAZY);
+        filterByGender.addValueChangeListener(e -> updateList());
+    }
+    private void configureFilterByJobStatus() {
+        filterByJobStatus.setPlaceholder("type job status...");
+        filterByJobStatus.setClearButtonVisible(true);
+        filterByJobStatus.setValueChangeMode(ValueChangeMode.LAZY);
+        filterByJobStatus.addValueChangeListener(e -> updateList());
+    }*/
 
     private void deleteClient(ClientForm.DeleteEvent event) {
         clientService.delete(event.getContact());
@@ -102,8 +130,9 @@ public class ClientView extends VerticalLayout {
     }
 
     private void updateList() {
-        grid.setItems(clientService.findAll());
-
+        grid.setItems(clientService.findAll(filterByName.getValue()));
+        /*grid.setItems(clientService.findAll(filterByGender.getValue()));
+        grid.setItems(clientService.findAll(filterByJobStatus.getValue()));*/
     }
 
 }

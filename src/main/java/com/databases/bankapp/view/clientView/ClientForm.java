@@ -13,15 +13,18 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
+import com.vaadin.flow.data.validator.RegexpValidator;
 import com.vaadin.flow.shared.Registration;
 
 import java.util.*;
 
 public class ClientForm extends FormLayout {
     TextField fullName = new TextField("full name");
-    TextField gender = new TextField("gender");
+    //TextField gender = new TextField("gender");
+    ComboBox<String> gender = new ComboBox<>();
     DatePicker dateOfBirth = new DatePicker();
-    TextField jobStatus = new TextField("job status");
+    //TextField jobStatus = new TextField("job status");
+    ComboBox<String> jobStatus = new ComboBox<>();
     TextField phoneNumber = new TextField("phone number");
 
     Button save = new Button("save");
@@ -34,6 +37,26 @@ public class ClientForm extends FormLayout {
     public ClientForm() {
         addClassName("client-form");
         dateOfBirth.setLabel("date of birth");
+        gender.setLabel("gender");
+        jobStatus.setLabel("job status");
+
+        ArrayList<String> genderItems = new ArrayList<>();
+        genderItems.add("мужской");
+        genderItems.add("женский");
+
+        gender.setItems(genderItems);
+
+        ArrayList<String> jobStatusItems = new ArrayList<>();
+        jobStatusItems.add("работает");
+        jobStatusItems.add("безработный");
+
+        jobStatus.setItems(jobStatusItems);
+
+        binder.forField(phoneNumber)
+                .withValidator(new RegexpValidator("Not a valid phone number",
+                        "^((8|\\+7)[\\- ]?)?(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{7,10}$"))
+                .bind(Client::getPhoneNumber, Client::setPhoneNumber);
+        binder.setBean(client);
 
         binder.bindInstanceFields(this);
 

@@ -11,6 +11,7 @@ import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
@@ -21,7 +22,7 @@ import java.util.List;
 public class InvestmentAccountForm extends FormLayout {
     ComboBox<Client> client = new ComboBox<>("client");
     DatePicker dateOfOpening = new DatePicker();
-    TextField moneySum = new TextField("money sum");
+    NumberField moneySum = new NumberField("money sum");
 
     Button save = new Button("save");
     Button delete = new Button("delete");
@@ -34,7 +35,7 @@ public class InvestmentAccountForm extends FormLayout {
         addClassName("invest-account-form");
         dateOfOpening.setLabel("date of opening");
 
-        /*moneySum.setPattern("[0-9]*");
+        /*moneySum.setPattern("[0-9]*.[0-9]*");
         moneySum.setPreventInvalidInput(true);
         moneySum.setMaxLength(14);*/
 

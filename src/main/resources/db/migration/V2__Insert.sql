@@ -31,21 +31,21 @@ insert into client values(30, 'Фетисов Дмитрий Владимиро�
 insert into client values(31, 'Черкасов Артём Алексеевич', '1987-12-12', 'мужской', 'работает', '8-888-888-88-30');
 
 
-insert into investment_account values(1, 1, '2020-12-12', '1000000');
-insert into investment_account values(2, 2, '2020-12-12', '1000000');
-insert into investment_account values(3, 3, '2020-12-12', '1000000');
-insert into investment_account values(4, 4, '2020-12-12', '1000000');
-insert into investment_account values(5, 5, '2020-12-12', '1000000');
-insert into investment_account values(6, 6, '2020-12-12', '200000');
-insert into investment_account values(7, 7, '2020-12-12', '200000');
-insert into investment_account values(8, 8, '2020-12-12', '200000');
-insert into investment_account values(9, 9, '2020-12-12', '200000');
-insert into investment_account values(10, 10, '2020-12-12', '200000');
-insert into investment_account values(11, 11, '2019-12-12', '500');
-insert into investment_account values(12, 12, '2019-12-12', '500');
-insert into investment_account values(13, 13, '2019-12-12', '500');
-insert into investment_account values(14, 14, '2019-12-12', '500');
-insert into investment_account values(15, 15, '2019-12-12', '500');
+insert into investment_account values(1, 1, '2020-12-12', 1000000);
+insert into investment_account values(2, 2, '2020-12-12', 1000000);
+insert into investment_account values(3, 3, '2020-12-12', 1000000);
+insert into investment_account values(4, 4, '2020-12-12', 1000000);
+insert into investment_account values(5, 5, '2020-12-12', 1000000);
+insert into investment_account values(6, 6, '2020-12-12', 200000);
+insert into investment_account values(7, 7, '2020-12-12', 200000);
+insert into investment_account values(8, 8, '2020-12-12', 200000);
+insert into investment_account values(9, 9, '2020-12-12', 200000);
+insert into investment_account values(10, 10, '2020-12-12', 200000);
+insert into investment_account values(11, 11, '2019-12-12', 500);
+insert into investment_account values(12, 12, '2019-12-12', 500);
+insert into investment_account values(13, 13, '2019-12-12', 500);
+insert into investment_account values(14, 14, '2019-12-12', 500);
+insert into investment_account values(15, 15, '2019-12-12', 500);
 
 
 

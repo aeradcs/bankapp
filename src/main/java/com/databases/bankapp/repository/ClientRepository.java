@@ -12,6 +12,10 @@ import java.util.Optional;
 
 public interface ClientRepository extends JpaRepository<Client, Long> {
 
+    @Query("select c from Client c " +
+            "where lower(c.fullName) like lower(concat('%', :searchTerm, '%')) " +
+            "or lower(c.fullName) like lower(concat('%', :searchTerm, '%'))")
+    List<Client> search(@Param("searchTerm") String searchTerm);
 
 
 

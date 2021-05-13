@@ -17,7 +17,8 @@ public class Client {
     private String jobStatus;
     private String phoneNumber;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "client")
+    @OneToMany( fetch = FetchType.EAGER, mappedBy = "client"/*,
+    cascade = CascadeType.ALL, orphanRemoval = true*/)
     private Set<InvestmentAccount> investmentAccounts = new HashSet<>();
 
 
@@ -25,8 +26,7 @@ public class Client {
     public Client() {
     }
 
-    public Client(Long id, String fullName, LocalDate dateOfBirth, String gender, String jobStatus, String phoneNumber, Set<InvestmentAccount> investmentAccounts) {
-        this.id = id;
+    public Client(String fullName, LocalDate dateOfBirth, String gender, String jobStatus, String phoneNumber, Set<InvestmentAccount> investmentAccounts) {
         this.fullName = fullName;
         this.dateOfBirth = dateOfBirth;
         this.gender = gender;
@@ -72,6 +72,8 @@ public class Client {
     public String getPhoneNumber() {
         return phoneNumber;
     }
+
+
 
     public void setId(Long id) {
         this.id = id;

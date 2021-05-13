@@ -9,11 +9,21 @@ import java.util.List;
 @Service
 public class ClientService {
     private ClientRepository clientRepository;
+
     public ClientService(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
     }
+
     public List<Client> findAll() {
         return clientRepository.findAll();
+    }
+
+    public List<Client> findAll(String stringFilter) {
+        if (stringFilter == null || stringFilter.isEmpty()) {
+            return clientRepository.findAll();
+        } else {
+            return clientRepository.search(stringFilter);
+        }
     }
 
     public long count() {
@@ -31,4 +41,5 @@ public class ClientService {
         }
         clientRepository.save(client);
     }
+
 }
