@@ -2,6 +2,8 @@ package com.databases.bankapp.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class InvestmentAccount {
@@ -16,6 +18,14 @@ public class InvestmentAccount {
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.DETACH}, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "investment_account_share",
+            joinColumns = { @JoinColumn(name = "id_invest_account") },
+            inverseJoinColumns = { @JoinColumn(name = "id_share") }
+    )
+    Set<Share> shares = new HashSet<>();
 
     public InvestmentAccount() {
     }

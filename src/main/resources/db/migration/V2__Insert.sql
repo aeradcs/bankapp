@@ -49,5 +49,33 @@ insert into investment_account values(15, 15, '2019-12-12', 500);
 
 
 
+insert into share values(1, 'Россия', 'mail.ru', 100, 'MSK');
+insert into share values(2, 'США', 'Apple', 100000, 'SPB');
+insert into share values(3, 'США', 'Amazon', 1000000, 'SPB');
+insert into share values(4, 'США', 'Intel', 100000, 'SPB');
+insert into share values(5, 'США', 'Boeing', 1000000, 'SPB');
+insert into share values(6, 'США', 'IBM', 9000000, 'SPB');
+insert into share values(7, 'Китай', 'Alibaba', 900000, 'SPB');
+insert into share values(8, 'Россия', 'TSC Group', 1000, 'MSK');
+insert into share values(9, 'Россия', 'Ozon', 1000, 'MSK');
+
+
+insert into investment_account_share values(1, 1);
+insert into investment_account_share values(1, 2);
+insert into investment_account_share values(1, 3);
+insert into investment_account_share values(1, 4);
+insert into investment_account_share values(1, 5);
+insert into investment_account_share values(1, 6);
+insert into investment_account_share values(1, 7);
+insert into investment_account_share values(1, 8);
+insert into investment_account_share values(1, 9);
+insert into investment_account_share values(2, 3);
+insert into investment_account_share values(2, 4);
+insert into investment_account_share values(3, 1);
+insert into investment_account_share values(4, 1);
+insert into investment_account_share values(5, 5);
+insert into investment_account_share values(5, 6);
+insert into investment_account_share values(5, 7);
+insert into investment_account_share values(5, 8);
 
 
