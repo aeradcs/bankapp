@@ -10,14 +10,16 @@ import java.util.List;
 
 @Service
 public class ShareService {
-    private ShareRepository shareRepository;
+    private final ShareRepository shareRepository;
+
     public ShareService(ShareRepository shareRepository) {
         this.shareRepository = shareRepository;
     }
-    public List<Share> findAll() {
+
+    /*public List<Share> findAll() {
         return shareRepository.findAll();
     }
-
+*/
     public List<Share> findAll(String stringFilter) {
         if (stringFilter == null || stringFilter.isEmpty()) {
             return shareRepository.findAll();

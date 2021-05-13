@@ -20,13 +20,14 @@ public class InvestmentAccount {
     @JoinColumn(name = "client_id")
     private Client client;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.DETACH}, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {/*CascadeType.PERSIST, CascadeType.DETACH*/CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(
             name = "investment_account_share",
             joinColumns = { @JoinColumn(name = "id_invest_account") },
             inverseJoinColumns = { @JoinColumn(name = "id_share") }
     )
     Set<Share> shares = new HashSet<>();
+
 
     public Long getId() {
         return id;
@@ -47,7 +48,9 @@ public class InvestmentAccount {
     public Set<Share> getShares() {
         return shares;
     }
-
+    /*public HashSet<Share> getShares(){
+        return new HashSet<>(shares);
+    }*/
     public void setId(Long id) {
         this.id = id;
     }
@@ -67,6 +70,9 @@ public class InvestmentAccount {
     public void setShares(Set<Share> shares) {
         this.shares = shares;
     }
+    /*public void setShares(Share shares) {
+        this.shares = (Set<Share>) shares;
+    }*/
 
     public String getSharesStr() {
         StringBuilder str = new StringBuilder();

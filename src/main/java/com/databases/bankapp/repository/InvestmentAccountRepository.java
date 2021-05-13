@@ -4,9 +4,11 @@ import com.databases.bankapp.entity.InvestmentAccount;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface InvestmentAccountRepository extends JpaRepository<InvestmentAccount, Long> {
     @Query("select t from InvestmentAccount t " +
             "where lower(t.id) like lower(concat('%', :searchTerm, '%'))")

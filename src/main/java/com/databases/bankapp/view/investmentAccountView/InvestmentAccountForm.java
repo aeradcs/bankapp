@@ -23,18 +23,20 @@ import java.util.List;
 
 public class InvestmentAccountForm extends FormLayout {
     ComboBox<Client> client = new ComboBox<>("client");
+
     DatePicker dateOfOpening = new DatePicker();
     NumberField moneySum = new NumberField("money sum");
-    MultiselectComboBox<Share> share = new MultiselectComboBox<>("share");
+
+    MultiselectComboBox<Share> shares = new MultiselectComboBox<>("share");
 
     Button save = new Button("save");
     Button delete = new Button("delete");
     Button close = new Button("cancel");
 
     Binder<InvestmentAccount> binder = new Binder<>(InvestmentAccount.class);
-    //InvestmentAccount investmentAccount;
+    InvestmentAccount investmentAccount;
 
-    public InvestmentAccountForm(List<Client> clients, List<Share> shares) {
+    public InvestmentAccountForm(List<Client> clients, List<Share> shares_) {
         addClassName("invest-account-form");
         dateOfOpening.setLabel("date of opening");
 
@@ -43,15 +45,18 @@ public class InvestmentAccountForm extends FormLayout {
         client.setItems(clients);
         client.setItemLabelGenerator(Client::getIdStr);
 
-        share.setItems(shares);
-        share.setItemLabelGenerator(Share::getNameOfCompany);
+        shares.setItems(shares_);
+        shares.setItemLabelGenerator(Share::getNameOfCompany);
 
-        add(dateOfOpening, moneySum, client, share, createButtonsLayout());
+        add(dateOfOpening, moneySum, client, shares, createButtonsLayout());
 
     }
 
     public void setInvestmentAccount(InvestmentAccount investmentAccount){
-        //this.investmentAccount = investmentAccount;
+        /*this.investmentAccount = investmentAccount;
+        binder.readBean(investmentAccount);
+*/
+
         binder.setBean(investmentAccount);
     }
 
@@ -75,7 +80,9 @@ public class InvestmentAccountForm extends FormLayout {
             fireEvent(new SaveEvent(this, investmentAccount));
         } catch (ValidationException e) {
             e.printStackTrace();
-        }*/
+        }
+*/
+
         if(binder.isValid()){
             fireEvent(new InvestmentAccountForm.SaveEvent(this, binder.getBean()));
         }

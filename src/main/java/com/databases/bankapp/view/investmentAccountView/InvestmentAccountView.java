@@ -25,7 +25,7 @@ import java.time.LocalDate;
 public class InvestmentAccountView extends VerticalLayout {
 
     private final Grid<InvestmentAccount> grid;
-    private InvestmentAccountService investmentAccountService;
+    private final InvestmentAccountService investmentAccountService;
     private final InvestmentAccountForm investmentAccountForm;
 
     private final TextField filterText = new TextField();
@@ -40,7 +40,7 @@ public class InvestmentAccountView extends VerticalLayout {
         setSizeFull();
         configureGrid();
 
-        investmentAccountForm = new InvestmentAccountForm(clientService.findAll(), shareService.findAll());
+        investmentAccountForm = new InvestmentAccountForm(clientService.findAll(), shareService.findAll(null));
         investmentAccountForm.addListener(InvestmentAccountForm.SaveEvent.class, this::saveInvestAccount);
         investmentAccountForm.addListener(InvestmentAccountForm.DeleteEvent.class, this::deleteInvestAccount);
         investmentAccountForm.addListener(InvestmentAccountForm.CloseEvent.class, e -> closeEditor());

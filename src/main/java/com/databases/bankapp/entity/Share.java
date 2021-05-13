@@ -18,8 +18,23 @@ public class Share {
     private String stock;
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "shares")
-    private Set<InvestmentAccount> investAccounts = new HashSet<>();
+    private final Set<InvestmentAccount> investmentAccounts = new HashSet<>();
 
+
+
+    /*public Set<InvestmentAccount> getInvestmentAccounts() {
+        return new HashSet<InvestmentAccount>(investmentAccounts);
+    }*/
+
+    /*public void setInvestmentAccounts(Set<InvestmentAccount> investmentAccounts) {
+        if(investmentAccounts != null){
+            investmentAccounts.forEach(el->{
+                el.setShares((Set<Share>) this);
+            });
+        }
+        this.investmentAccounts = investmentAccounts;
+
+    }*/
 
     public Long getId() {
         return id;
@@ -69,7 +84,7 @@ public class Share {
                 ", nameOfCompany='" + nameOfCompany + '\'' +
                 ", capitalization=" + capitalization +
                 ", stock='" + stock + '\'' +
-                ", investAccounts=" + investAccounts +
+                ", investAccounts=" + investmentAccounts +
                 '}';
     }
 }
