@@ -1,5 +1,6 @@
 package com.databases.bankapp.view.depositView;
 
+import com.databases.bankapp.entity.Card;
 import com.databases.bankapp.entity.Client;
 import com.databases.bankapp.entity.Deposit;
 import com.vaadin.flow.component.ComponentEvent;
@@ -57,6 +58,11 @@ public class DepositForm extends FormLayout {
         binder.forField(percentPerYear)
                 .withValidator(new DoubleRangeValidator("Can be only from 0.1 to 10", 0.1, 10.0))
                 .bind(Deposit::getPercentPerYear, Deposit::setPercentPerYear);
+        binder.setBean(deposit);
+
+        binder.forField(moneySum)
+                .withValidator(new DoubleRangeValidator("Can be only between 0 and 1000000000000", 0.0, 1000000000000.0))
+                .bind(Deposit::getMoneySum, Deposit::setMoneySum);
         binder.setBean(deposit);
 
         binder.bindInstanceFields(this);

@@ -1,6 +1,7 @@
 package com.databases.bankapp.view.clientView;
 
 import com.databases.bankapp.entity.Client;
+import com.databases.bankapp.entity.Deposit;
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.button.Button;
@@ -13,9 +14,12 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
+import com.vaadin.flow.data.validator.DateRangeValidator;
+import com.vaadin.flow.data.validator.DoubleRangeValidator;
 import com.vaadin.flow.data.validator.RegexpValidator;
 import com.vaadin.flow.shared.Registration;
 
+import java.time.LocalDate;
 import java.util.*;
 
 public class ClientForm extends FormLayout {
@@ -57,6 +61,15 @@ public class ClientForm extends FormLayout {
                         "^((8|\\+7)[\\- ]?)?(\\(?\\d{3}\\)?[\\- ]?)?[\\d\\- ]{7,10}$"))
                 .bind(Client::getPhoneNumber, Client::setPhoneNumber);
         binder.setBean(client);
+
+        binder.forField(dateOfBirth)
+                .withValidator(new DateRangeValidator(
+                        "Date of birth must be between 1900-01-01 and 2003-01-01",
+                        LocalDate.of(1900, 1, 1),
+                        LocalDate.of(2003, 1, 1)))
+                .bind(Client::getDateOfBirth, Client::setDateOfBirth);
+        binder.setBean(client);
+
 
         binder.bindInstanceFields(this);
 

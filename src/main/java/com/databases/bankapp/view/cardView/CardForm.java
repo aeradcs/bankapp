@@ -2,6 +2,7 @@ package com.databases.bankapp.view.cardView;
 
 import com.databases.bankapp.entity.Card;
 import com.databases.bankapp.entity.Client;
+import com.databases.bankapp.entity.Deposit;
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.button.Button;
@@ -14,6 +15,8 @@ import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
+import com.vaadin.flow.data.validator.DateRangeValidator;
+import com.vaadin.flow.data.validator.DoubleRangeValidator;
 import com.vaadin.flow.shared.Registration;
 
 import java.util.List;
@@ -33,6 +36,11 @@ public class CardForm extends FormLayout {
     public CardForm(List<Client> clients){
         addClassName("card-form");
         expiryDate.setLabel("expiry date");
+
+        binder.forField(moneySum)
+                .withValidator(new DoubleRangeValidator("Can be only between 0 and 1000000000000", 0.0, 1000000000000.0))
+                .bind(Card::getMoneySum, Card::setMoneySum);
+        binder.setBean(card);
 
         binder.bindInstanceFields(this);
 

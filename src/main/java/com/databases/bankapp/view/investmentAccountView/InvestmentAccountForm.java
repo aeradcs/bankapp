@@ -1,5 +1,6 @@
 package com.databases.bankapp.view.investmentAccountView;
 
+import com.databases.bankapp.entity.Card;
 import com.databases.bankapp.entity.Client;
 import com.databases.bankapp.entity.InvestmentAccount;
 import com.databases.bankapp.entity.Share;
@@ -16,6 +17,7 @@ import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
+import com.vaadin.flow.data.validator.DoubleRangeValidator;
 import com.vaadin.flow.shared.Registration;
 import org.vaadin.gatanaso.MultiselectComboBox;
 
@@ -39,6 +41,11 @@ public class InvestmentAccountForm extends FormLayout {
     public InvestmentAccountForm(List<Client> clients, List<Share> shares_) {
         addClassName("invest-account-form");
         dateOfOpening.setLabel("date of opening");
+
+        binder.forField(moneySum)
+                .withValidator(new DoubleRangeValidator("Can be only between 0 and 1000000000000", 0.0, 1000000000000.0))
+                .bind(InvestmentAccount::getMoneySum, InvestmentAccount::setMoneySum);
+        binder.setBean(investmentAccount);
 
         binder.bindInstanceFields(this);
 

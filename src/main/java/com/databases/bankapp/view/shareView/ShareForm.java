@@ -1,5 +1,6 @@
 package com.databases.bankapp.view.shareView;
 
+import com.databases.bankapp.entity.Card;
 import com.databases.bankapp.entity.Share;
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
@@ -12,6 +13,8 @@ import com.vaadin.flow.component.textfield.IntegerField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
+import com.vaadin.flow.data.validator.DoubleRangeValidator;
+import com.vaadin.flow.data.validator.IntegerRangeValidator;
 import com.vaadin.flow.shared.Registration;
 
 import java.util.ArrayList;
@@ -39,6 +42,11 @@ public class ShareForm extends FormLayout {
         stockItems.add("SPB");
 
         stock.setItems(stockItems);
+
+        binder.forField(capitalization)
+                .withValidator(new IntegerRangeValidator("Can be only between 0 and 1000000000000", 0, 1000000000))
+                .bind(Share::getCapitalization, Share::setCapitalization);
+        binder.setBean(share);
 
         binder.bindInstanceFields(this);
 
