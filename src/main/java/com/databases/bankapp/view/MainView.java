@@ -63,7 +63,7 @@ public class MainView extends AppLayout {
         RouterLink cardRL = new RouterLink("Cards", CardView.class);
         cardRL.setHighlightCondition(HighlightConditions.sameLocation());
 
-        RouterLink q1 = new RouterLink("Q1", GetShareByStockQuery.class);
+        RouterLink q1 = new RouterLink("Get Shares By Diff Params", GetShareByStockQuery.class);
         q1.setHighlightCondition(HighlightConditions.sameLocation());
 
         addToDrawer(new VerticalLayout(clientRL, investmentAccountRL, shareRL, depositRL, cardRL, q1));

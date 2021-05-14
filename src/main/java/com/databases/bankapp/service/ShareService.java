@@ -32,6 +32,21 @@ public class ShareService {
         return  shareRepository.getShareByStock(param);
     }
 
+    public List<Share> getShareByCountry(String param){
+        return  shareRepository.getShareByCountry(param);
+    }
+
+    public List<Share> getShareByNameOfCompany(String param){
+        return  shareRepository.getShareByNameOfCompany(param);
+    }
+
+    public List<Share> getShareByCapitalizationLess(Integer param){
+        return  shareRepository.getShareByCapitalizationLess(param);
+    }
+    public List<Share> getShareByCapitalizationMore(Integer param){
+        return  shareRepository.getShareByCapitalizationMore(param);
+    }
+
     public long count() {
         return shareRepository.count();
     }

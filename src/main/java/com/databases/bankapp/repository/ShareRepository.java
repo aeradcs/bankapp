@@ -19,4 +19,20 @@ public interface ShareRepository extends JpaRepository<Share, Long> {
             "select * from Share a where a.stock = :param", nativeQuery = true)
     List<Share> getShareByStock(@Param("param") String param);
 
+    @Query(value =
+            "select * from Share a where a.country = :param", nativeQuery = true)
+    List<Share> getShareByCountry(@Param("param") String param);
+
+    @Query(value =
+            "select * from Share a where a.name_of_company = :param", nativeQuery = true)
+    List<Share> getShareByNameOfCompany(@Param("param") String param);
+
+    @Query(value =
+            "select * from Share a where a.capitalization <= :param", nativeQuery = true)
+    List<Share> getShareByCapitalizationLess(@Param("param") Integer param);
+
+
+    @Query(value =
+            "select * from Share a where a.capitalization >= :param", nativeQuery = true)
+    List<Share> getShareByCapitalizationMore(@Param("param") Integer param);
 }

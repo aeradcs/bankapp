@@ -28,7 +28,7 @@ public class InvestmentAccountView extends VerticalLayout {
     private final InvestmentAccountService investmentAccountService;
     private final InvestmentAccountForm investmentAccountForm;
 
-    private final TextField filterText = new TextField();
+    //private final TextField filterText = new TextField();
 
     public InvestmentAccountView(InvestmentAccountService investmentAccountService,
                                  ClientService clientService,
@@ -70,15 +70,15 @@ public class InvestmentAccountView extends VerticalLayout {
     }
 
     private HorizontalLayout getToolbar() {
-        filterText.setPlaceholder("Filter by ...");
+        /*filterText.setPlaceholder("Filter by ...");
         filterText.setClearButtonVisible(true);
         filterText.setValueChangeMode(ValueChangeMode.LAZY);
-        filterText.addValueChangeListener(e -> updateList());
+        filterText.addValueChangeListener(e -> updateList());*/
 
         Button addInvestAccountButton = new Button("Add Investment Account");
         addInvestAccountButton.addClickListener(click -> addInvestAccount());
 
-        HorizontalLayout toolbar = new HorizontalLayout(filterText, addInvestAccountButton);
+        HorizontalLayout toolbar = new HorizontalLayout(/*filterText, */addInvestAccountButton);
         toolbar.addClassName("toolbar");
 
         return toolbar;
@@ -120,7 +120,7 @@ public class InvestmentAccountView extends VerticalLayout {
     }
 
     private void updateList() {
-        grid.setItems(investmentAccountService.findAll(filterText.getValue()));
+        grid.setItems(investmentAccountService.findAll(null/*filterText.getValue()*/));
 
     }
 
