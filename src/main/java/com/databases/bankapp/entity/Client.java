@@ -1,6 +1,7 @@
 package com.databases.bankapp.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -9,6 +10,7 @@ public class Client {
     @Id
     @SequenceGenerator(name = "client_sequence", sequenceName = "client_sequence")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "client_sequence")
+    @Min(0)
     private Long id;
 
     private String fullName;
@@ -21,18 +23,33 @@ public class Client {
     cascade = CascadeType.ALL, orphanRemoval = true*/)
     private Set<InvestmentAccount> investmentAccounts = new HashSet<>();
 
-
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "client")
+    private Set<Deposit> deposits = new HashSet<>();
 
     public Client() {
     }
 
-    public Client(String fullName, LocalDate dateOfBirth, String gender, String jobStatus, String phoneNumber, Set<InvestmentAccount> investmentAccounts) {
+    public Set<Deposit> getDeposits() {
+        return deposits;
+    }
+
+    public void setDeposits(Set<Deposit> deposits) {
+        if(deposits != null){
+            deposits.forEach(el->{
+                el.setClient(this);
+            });
+        }
+        this.deposits = deposits;
+    }
+
+    public Client(String fullName, LocalDate dateOfBirth, String gender, String jobStatus, String phoneNumber, Set<InvestmentAccount> investmentAccounts, Set<Deposit> deposits) {
         this.fullName = fullName;
         this.dateOfBirth = dateOfBirth;
         this.gender = gender;
         this.jobStatus = jobStatus;
         this.phoneNumber = phoneNumber;
         this.investmentAccounts = investmentAccounts;
+        this.deposits = deposits;
     }
 
     public Set<InvestmentAccount> getInvestmentAccounts() {

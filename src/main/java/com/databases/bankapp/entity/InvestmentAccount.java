@@ -1,6 +1,7 @@
 package com.databases.bankapp.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -11,6 +12,7 @@ public class InvestmentAccount {
     @Id
     @SequenceGenerator(name = "investment_account_sequence", sequenceName = "investment_account_sequence")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "investment_account_sequence")
+    @Min(0)
     private Long id;
 
     private LocalDate dateOfOpening;

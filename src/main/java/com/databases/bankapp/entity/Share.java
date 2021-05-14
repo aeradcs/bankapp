@@ -1,6 +1,7 @@
 package com.databases.bankapp.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -10,6 +11,7 @@ public class Share {
     @Id
     @SequenceGenerator(name = "share_sequence", sequenceName = "share_sequence")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "share_sequence")
+    @Min(0)
     private Long id;
 
     private String country;

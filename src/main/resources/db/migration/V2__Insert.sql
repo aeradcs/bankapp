@@ -79,3 +79,14 @@ insert into investment_account_share values(5, 7);
 insert into investment_account_share values(5, 8);
 
 
+
+insert into deposit values(1, 1, '2020-02-02', '2023-02-02', 1000, 5.5, 1, 1);
+insert into deposit values(2, 1, '2019-02-02', '2024-02-02', 10000, 7, 1, 1);
+insert into deposit values(3, 2, '2018-02-02', '2023-02-02', 500000, 8, 0, 1);
+insert into deposit values(4, 2, '2020-02-02', '2022-02-02', 500, 3, 0, 1);
+insert into deposit values(5, 2, '2019-02-02', '2023-02-02', 50000, 3.5, 0, 1);
+insert into deposit values(6, 3, '2017-02-02', '2023-02-02', 9000, 3.5, 0, 1);
+insert into deposit values(7, 4, '2018-02-02', '2023-02-02', 18000, 4.5, 1, 0);
+insert into deposit values(8, 5, '2018-02-02', '2023-02-02', 10000, 4.5, 1, 1);
+insert into deposit values(9, 6, '2020-02-02', '2021-02-02', 100, 2.5, 1, 1);
+
