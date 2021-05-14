@@ -14,9 +14,9 @@ public class DepositService {
         this.depositRepository = depositRepository;
     }
 
-    /*public List<InvestmentAccount> findAll() {
-        return investmentAccountRepository.findAll();
-    }*/
+    public List<Deposit> findAll() {
+        return depositRepository.findAll();
+    }
 
     /*public List<Deposit> findAll(String filterText) {
         if (filterText == null || filterText.isEmpty()) {

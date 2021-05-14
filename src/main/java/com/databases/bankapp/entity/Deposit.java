@@ -1,14 +1,11 @@
 package com.databases.bankapp.entity;
 
-import org.springframework.data.annotation.Id;
-
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import java.time.LocalDate;
 
 @Entity
 public class Deposit {
-    @javax.persistence.Id
     @Id
     @SequenceGenerator(name = "deposit_sequence", sequenceName = "deposit_sequence")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "deposit_sequence")
