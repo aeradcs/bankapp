@@ -15,8 +15,8 @@ public interface ShareRepository extends JpaRepository<Share, Long> {
             "where lower(t.nameOfCompany) like lower(concat('%', :searchTerm, '%'))")
     List<Share> search(@Param("searchTerm") String searchTerm);
 
-
-
-
+    @Query(value =
+            "select * from Share a where a.stock = :param", nativeQuery = true)
+    List<Share> getShareByStock(@Param("param") String param);
 
 }

@@ -28,6 +28,10 @@ public class ShareService {
         }
     }
 
+    public List<Share> getShareByStock(String param){
+        return  shareRepository.getShareByStock(param);
+    }
+
     public long count() {
         return shareRepository.count();
     }

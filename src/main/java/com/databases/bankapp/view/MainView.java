@@ -9,6 +9,7 @@ import com.databases.bankapp.view.clientView.ClientForm;
 import com.databases.bankapp.view.clientView.ClientView;
 import com.databases.bankapp.view.depositView.DepositView;
 import com.databases.bankapp.view.investmentAccountView.InvestmentAccountView;
+import com.databases.bankapp.view.queries.GetShareByStockQuery;
 import com.databases.bankapp.view.shareView.ShareView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
@@ -62,6 +63,9 @@ public class MainView extends AppLayout {
         RouterLink cardRL = new RouterLink("Cards", CardView.class);
         cardRL.setHighlightCondition(HighlightConditions.sameLocation());
 
-        addToDrawer(new VerticalLayout(clientRL, investmentAccountRL, shareRL, depositRL, cardRL));
+        RouterLink q1 = new RouterLink("Q1", GetShareByStockQuery.class);
+        q1.setHighlightCondition(HighlightConditions.sameLocation());
+
+        addToDrawer(new VerticalLayout(clientRL, investmentAccountRL, shareRL, depositRL, cardRL, q1));
     }
 }
