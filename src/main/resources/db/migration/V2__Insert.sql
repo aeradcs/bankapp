@@ -90,3 +90,15 @@ insert into deposit values(7, 4, '2018-02-02', '2023-02-02', 18000, 4.5, 1, 0);
 insert into deposit values(8, 5, '2018-02-02', '2023-02-02', 10000, 4.5, 1, 1);
 insert into deposit values(9, 6, '2020-02-02', '2021-02-02', 100, 2.5, 1, 1);
 
+insert into card values(1, 1, '2022-11-01', 10000);
+insert into card values(2, 1, '2022-11-01', 200);
+insert into card values(3, 1, '2022-11-01', 10);
+insert into card values(4, 1, '2022-11-01', 500);
+insert into card values(5, 1, '2022-11-01', 100);
+insert into card values(6, 1, '2022-11-01', 5000);
+insert into card values(7, 2, '2022-11-01', 500000);
+insert into card values(8, 2, '2022-11-01', 900);
+insert into card values(9, 3, '2022-11-01', 9000000);
+insert into card values(10, 4, '2022-11-01', 330);
+insert into card values(11, 5, '2022-11-01', 100);
+

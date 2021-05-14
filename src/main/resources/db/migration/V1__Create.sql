@@ -41,5 +41,13 @@ create table if not exists deposit(
     percent_per_year double precision not null check(percent_per_year <= 10 and percent_per_year >= 0.1),
     is_replenish integer not null check(is_replenish >= 0 and is_replenish <= 1),
     is_withdraw integer not null check(is_withdraw >= 0 and is_withdraw <= 1),
-    constraint fk_id_client_in_invest_account_table foreign key(client_id) references client(id)
+    constraint fk_id_client_in_deposit_table foreign key(client_id) references client(id)
+    );
+
+create table if not exists card(
+    id bigserial primary key,
+    client_id bigserial not null ,
+    expiry_date  date not null,
+    money_sum double precision not null,
+    constraint fk_id_client_in_card_table foreign key(client_id) references client(id)
     );

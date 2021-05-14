@@ -4,6 +4,7 @@ import com.databases.bankapp.entity.Client;
 import com.databases.bankapp.entity.InvestmentAccount;
 import com.databases.bankapp.repository.ClientRepository;
 import com.databases.bankapp.service.ClientService;
+import com.databases.bankapp.view.cardView.CardView;
 import com.databases.bankapp.view.clientView.ClientForm;
 import com.databases.bankapp.view.clientView.ClientView;
 import com.databases.bankapp.view.depositView.DepositView;
@@ -58,6 +59,9 @@ public class MainView extends AppLayout {
         RouterLink depositRL = new RouterLink("Deposits", DepositView.class);
         depositRL.setHighlightCondition(HighlightConditions.sameLocation());
 
-        addToDrawer(new VerticalLayout(clientRL, investmentAccountRL, shareRL, depositRL));
+        RouterLink cardRL = new RouterLink("Cards", CardView.class);
+        cardRL.setHighlightCondition(HighlightConditions.sameLocation());
+
+        addToDrawer(new VerticalLayout(clientRL, investmentAccountRL, shareRL, depositRL, cardRL));
     }
 }
