@@ -19,7 +19,7 @@ import java.util.List;
 
 @Route(value = "query_1", layout = MainView.class)
 @PageTitle("Query №1")
-public class GetShareByStockQuery extends VerticalLayout {
+public class GetShareByDiffParams extends VerticalLayout {
     private final ShareService shareService;
 
     private final Grid<Share> grid;
@@ -30,7 +30,7 @@ public class GetShareByStockQuery extends VerticalLayout {
     private final IntegerField less = new IntegerField();
     private final IntegerField more = new IntegerField();
 
-    public GetShareByStockQuery(ShareService shareService) {
+    public GetShareByDiffParams(ShareService shareService) {
         this.shareService = shareService;
         addClassName("query_1_view");
         this.grid = new Grid<>(Share.class);
@@ -61,39 +61,24 @@ public class GetShareByStockQuery extends VerticalLayout {
         Button qstock = new Button("Find by stock", click -> findByStock(stockName.getValue()));
         Button qcountry = new Button("Find by country", click -> findByCountry(country.getValue()));
         Button qcompany = new Button("Find by company", click -> findByCompany(nameOfCompany.getValue()));
-        Button qless = new Button("Find less than", click -> findLess(less.getValue()));
-        Button qmore = new Button("Find more than", click -> findMore(more.getValue()));
+        Button qbetweeen = new Button("Find between these", click -> findBetween(more.getValue(), less.getValue()));
 
 
         VerticalLayout v1 = new VerticalLayout(country, qcountry);
         VerticalLayout v2 = new VerticalLayout(nameOfCompany, qcompany);
-        VerticalLayout v3 = new VerticalLayout(less, qless);
-        VerticalLayout v4 = new VerticalLayout(more, qmore);
+        VerticalLayout v3 = new VerticalLayout(less);
+        VerticalLayout v4 = new VerticalLayout(more, qbetweeen);
         VerticalLayout v5 = new VerticalLayout(stockName, qstock);
-        HorizontalLayout toolbar = new HorizontalLayout(v1, v2, v3, v4, v5);
+        HorizontalLayout toolbar = new HorizontalLayout(v1, v2, v4, v3, v5);
 
         toolbar.addClassName("toolbar");
         return toolbar;
     }
 
-    private void findMore(Integer param) {
+    private void findBetween(Integer param1, Integer param2) {
         List<Share> shares = null;
-        if(param != null){
-            shares = shareService.getShareByCapitalizationMore(param);
-            if (shares.isEmpty()) {
-                grid.setItems(Collections.emptyList());
-            } else grid.setItems(shares);
-        }
-        else {
-            grid.setItems(Collections.emptyList());
-        }
-
-    }
-
-    private void findLess(Integer param) {
-        List<Share> shares = null;
-        if(param != null){
-            shares = shareService.getShareByCapitalizationLess(param);
+        if(param1 != null && param2 != null){
+            shares = shareService.getShareByCapitalizationBetween(param1, param2);
             if (shares.isEmpty()) {
                 grid.setItems(Collections.emptyList());
             } else grid.setItems(shares);

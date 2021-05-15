@@ -1,31 +1,19 @@
 package com.databases.bankapp.view;
 
-import com.databases.bankapp.entity.Client;
-import com.databases.bankapp.entity.InvestmentAccount;
-import com.databases.bankapp.repository.ClientRepository;
-import com.databases.bankapp.service.ClientService;
 import com.databases.bankapp.view.cardView.CardView;
-import com.databases.bankapp.view.clientView.ClientForm;
 import com.databases.bankapp.view.clientView.ClientView;
 import com.databases.bankapp.view.depositView.DepositView;
 import com.databases.bankapp.view.investmentAccountView.InvestmentAccountView;
-import com.databases.bankapp.view.queries.GetShareByStockQuery;
+import com.databases.bankapp.view.queries.GetShareByDiffParams;
 import com.databases.bankapp.view.shareView.ShareView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.html.Div;
-import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.router.HighlightConditions;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Route(value = "home")
 public class MainView extends AppLayout {
@@ -63,7 +51,7 @@ public class MainView extends AppLayout {
         RouterLink cardRL = new RouterLink("Cards", CardView.class);
         cardRL.setHighlightCondition(HighlightConditions.sameLocation());
 
-        RouterLink q1 = new RouterLink("Get Shares By Diff Params", GetShareByStockQuery.class);
+        RouterLink q1 = new RouterLink("Get Shares By Diff Params", GetShareByDiffParams.class);
         q1.setHighlightCondition(HighlightConditions.sameLocation());
 
         addToDrawer(new VerticalLayout(clientRL, investmentAccountRL, shareRL, depositRL, cardRL, q1));

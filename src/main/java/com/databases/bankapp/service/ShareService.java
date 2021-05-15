@@ -40,11 +40,9 @@ public class ShareService {
         return  shareRepository.getShareByNameOfCompany(param);
     }
 
-    public List<Share> getShareByCapitalizationLess(Integer param){
-        return  shareRepository.getShareByCapitalizationLess(param);
-    }
-    public List<Share> getShareByCapitalizationMore(Integer param){
-        return  shareRepository.getShareByCapitalizationMore(param);
+
+    public List<Share> getShareByCapitalizationBetween(Integer param1, Integer param2){
+        return  shareRepository.getShareByCapitalizationBetween(param1, param2);
     }
 
     public long count() {
