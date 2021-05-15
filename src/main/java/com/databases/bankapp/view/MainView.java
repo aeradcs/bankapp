@@ -1,9 +1,12 @@
 package com.databases.bankapp.view;
 
+import com.databases.bankapp.view.bondView.BondView;
 import com.databases.bankapp.view.cardView.CardView;
 import com.databases.bankapp.view.clientView.ClientView;
+import com.databases.bankapp.view.currencyView.CurrencyView;
 import com.databases.bankapp.view.depositView.DepositView;
 import com.databases.bankapp.view.investmentAccountView.InvestmentAccountView;
+import com.databases.bankapp.view.metalView.MetalView;
 import com.databases.bankapp.view.queries.FindCardByDiffParams;
 import com.databases.bankapp.view.queries.FindClientsWhoHasInvestAcc;
 import com.databases.bankapp.view.queries.FindDepositCountForEveryClientWhoHasIt;
@@ -54,6 +57,15 @@ public class MainView extends AppLayout {
         RouterLink cardRL = new RouterLink("Cards", CardView.class);
         cardRL.setHighlightCondition(HighlightConditions.sameLocation());
 
+        RouterLink bondRL = new RouterLink("Bonds", BondView.class);
+        bondRL.setHighlightCondition(HighlightConditions.sameLocation());
+
+        /*RouterLink currencyRL = new RouterLink("Currencies", CurrencyView.class);
+        currencyRL.setHighlightCondition(HighlightConditions.sameLocation());*/
+
+        /*RouterLink metalRL = new RouterLink("Metals", MetalView.class);
+        metalRL.setHighlightCondition(HighlightConditions.sameLocation());*/
+
         RouterLink q1 = new RouterLink("Get Shares By Diff Params", GetShareByDiffParams.class);
         q1.setHighlightCondition(HighlightConditions.sameLocation());
 
@@ -67,7 +79,7 @@ public class MainView extends AppLayout {
         q4.setHighlightCondition(HighlightConditions.sameLocation());
 
 
-        addToDrawer(new VerticalLayout(clientRL, investmentAccountRL, shareRL, depositRL, cardRL,
+        addToDrawer(new VerticalLayout(clientRL, investmentAccountRL, shareRL, depositRL, cardRL, bondRL, /*currencyRL, metalRL,*/
                 q1, q2, q3, q4));
     }
 }
