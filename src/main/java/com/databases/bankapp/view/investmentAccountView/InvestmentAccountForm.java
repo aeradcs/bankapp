@@ -53,7 +53,7 @@ public class InvestmentAccountForm extends FormLayout {
         client.setItemLabelGenerator(Client::getIdStr);
 
         shares.setItems(shares_);
-        shares.setItemLabelGenerator(Share::getNameOfCompany);
+        shares.setItemLabelGenerator(Share::getName);
 
         add(dateOfOpening, moneySum, client, shares, createButtonsLayout());
 

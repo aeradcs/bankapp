@@ -7,20 +7,26 @@ import java.util.Iterator;
 import java.util.Set;
 
 @Entity
-public class Share {
-    @Id
-    @SequenceGenerator(name = "share_sequence", sequenceName = "share_sequence")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "share_sequence")
-    @Min(0)
-    private Long id;
+public class Share extends  Asset{
 
     private String country;
-    private String nameOfCompany;
     private Integer capitalization;
     private String stock;
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "shares")
     private final Set<InvestmentAccount> investmentAccounts = new HashSet<>();
+
+    public Share(String name, Double cost, String country, Integer capitalization, String stock) {
+        super(name, cost);
+        this.country = country;
+        this.capitalization = capitalization;
+        this.stock = stock;
+    }
+
+    public Share() {
+
+    }
+
 
 
 
@@ -38,18 +44,18 @@ public class Share {
 
     }*/
 
-    public Long getId() {
+    /*public Long getId() {
         return id;
-    }
+    }*/
 
     public String getCountry() {
         return country;
     }
 
-    public String getNameOfCompany() {
+    /*public String getNameOfCompany() {
         return nameOfCompany;
     }
-
+*/
     public Integer getCapitalization() {
         return capitalization;
     }
@@ -58,17 +64,18 @@ public class Share {
         return stock;
     }
 
-    public void setId(Long id) {
+    /*public void setId(Long id) {
         this.id = id;
-    }
+    }*/
 
     public void setCountry(String country) {
         this.country = country;
     }
 
-    public void setNameOfCompany(String nameOfCompany) {
+
+    /*public void setNameOfCompany(String nameOfCompany) {
         this.nameOfCompany = nameOfCompany;
-    }
+    }*/
 
     public void setCapitalization(Integer capitalization) {
         this.capitalization = capitalization;
@@ -78,15 +85,17 @@ public class Share {
         this.stock = stock;
     }
 
+    public Set<InvestmentAccount> getInvestmentAccounts() {
+        return investmentAccounts;
+    }
+
     @Override
     public String toString() {
         return "Share{" +
-                "id=" + id +
-                ", country='" + country + '\'' +
-                ", nameOfCompany='" + nameOfCompany + '\'' +
+                "country='" + country + '\'' +
                 ", capitalization=" + capitalization +
                 ", stock='" + stock + '\'' +
-                ", investAccounts=" + investmentAccounts +
+                ", investmentAccounts=" + investmentAccounts +
                 '}';
     }
 }

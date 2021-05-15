@@ -12,23 +12,24 @@ import java.util.List;
 @Repository
 public interface ShareRepository extends JpaRepository<Share, Long> {
     @Query("select t from Share t " +
-            "where lower(t.nameOfCompany) like lower(concat('%', :searchTerm, '%'))")
+            "where lower(t.name) like lower(concat('%', :searchTerm, '%'))")
     List<Share> search(@Param("searchTerm") String searchTerm);
 
     @Query(value =
-            "select * from Share a where a.stock = :param", nativeQuery = true)
-    List<Share> getShareByStock(@Param("param") String param);
-
-    @Query(value =
-            "select * from Share a where a.country = :param", nativeQuery = true)
-    List<Share> getShareByCountry(@Param("param") String param);
-
-    @Query(value =
-            "select * from Share a where a.name_of_company = :param", nativeQuery = true)
-    List<Share> getShareByNameOfCompany(@Param("param") String param);
+            "select s.id, a.name, a.cost, s.country, s.capitalization, s.stock from Share s join Asset a on s.id=a.id where s.stock = :param", nativeQuery = true)
+    List<Object[]> getShareByStock(@Param("param") String param);
 
 
     @Query(value =
-            "select * from Share a where (a.capitalization >= :param1 and a.capitalization <= :param2)", nativeQuery = true)
-    List<Share> getShareByCapitalizationBetween(@Param("param1") Integer param1, @Param("param2") Integer param2);
+            "select s.id, a.name, a.cost, s.country, s.capitalization, s.stock from Share s join Asset a on s.id=a.id where s.country = :param", nativeQuery = true)
+    List<Object[]> getShareByCountry(@Param("param") String param);
+
+    @Query(value =
+            "select s.id, a.name, a.cost, s.country, s.capitalization, s.stock from Share s join Asset a on s.id=a.id where a.name = :param", nativeQuery = true)
+    List<Object[]> getShareByNameOfCompany(@Param("param") String param);
+
+
+    @Query(value =
+            "select s.id, a.name, a.cost, s.country, s.capitalization, s.stock from Share s join Asset a on s.id=a.id where (s.capitalization >= :param1 and s.capitalization <= :param2)", nativeQuery = true)
+    List<Object[]> getShareByCapitalizationBetween(@Param("param1") Integer param1, @Param("param2") Integer param2);
 }

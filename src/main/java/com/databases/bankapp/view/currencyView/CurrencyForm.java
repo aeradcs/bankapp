@@ -21,6 +21,7 @@ import com.vaadin.flow.shared.Registration;
 public class CurrencyForm extends FormLayout {
     TextField country = new TextField("country");
     TextField name = new TextField("name");
+    NumberField cost = new NumberField("cost");
 
     Button save = new Button("save");
     Button delete = new Button("delete");
@@ -32,7 +33,12 @@ public class CurrencyForm extends FormLayout {
     public CurrencyForm(){
         binder.bindInstanceFields(this);
 
-        add(country, name, createButtonsLayout());
+        binder.forField(cost)
+                .withValidator(new DoubleRangeValidator("Can be only more than 0", 0.0, 100000000.0))
+                .bind(Currency::getCost, Currency::setCost);
+        binder.setBean(v);
+
+        add(country, name, cost, createButtonsLayout());
     }
 
     public void set(Currency v){

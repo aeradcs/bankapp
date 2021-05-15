@@ -22,18 +22,18 @@ import java.util.List;
 public class GetShareByDiffParams extends VerticalLayout {
     private final ShareService shareService;
 
-    private final Grid<Share> grid;
+    private final Grid<Object[]> grid;
 
     private final TextField stockName = new TextField();
     private final TextField country = new TextField();
-    private final TextField nameOfCompany = new TextField();
+    private final TextField name = new TextField();
     private final IntegerField less = new IntegerField();
     private final IntegerField more = new IntegerField();
 
     public GetShareByDiffParams(ShareService shareService) {
         this.shareService = shareService;
         addClassName("query_1_view");
-        this.grid = new Grid<>(Share.class);
+        this.grid = new Grid<>();
 
         configureGrid();
         add(getToolBar(), grid);
@@ -49,8 +49,8 @@ public class GetShareByDiffParams extends VerticalLayout {
         country.setPlaceholder("Country...");
         country.setClearButtonVisible(true);
 
-        nameOfCompany.setPlaceholder("Company...");
-        nameOfCompany.setClearButtonVisible(true);
+        name.setPlaceholder("Company...");
+        name.setClearButtonVisible(true);
 
         less.setPlaceholder("Less than...");
         less.setClearButtonVisible(true);
@@ -60,12 +60,12 @@ public class GetShareByDiffParams extends VerticalLayout {
 
         Button qstock = new Button("Find by stock", click -> findByStock(stockName.getValue()));
         Button qcountry = new Button("Find by country", click -> findByCountry(country.getValue()));
-        Button qcompany = new Button("Find by company", click -> findByCompany(nameOfCompany.getValue()));
+        Button qcompany = new Button("Find by company", click -> findByCompany(name.getValue()));
         Button qbetweeen = new Button("Find between these", click -> findBetween(more.getValue(), less.getValue()));
 
 
         VerticalLayout v1 = new VerticalLayout(country, qcountry);
-        VerticalLayout v2 = new VerticalLayout(nameOfCompany, qcompany);
+        VerticalLayout v2 = new VerticalLayout(name, qcompany);
         VerticalLayout v3 = new VerticalLayout(less);
         VerticalLayout v4 = new VerticalLayout(more, qbetweeen);
         VerticalLayout v5 = new VerticalLayout(stockName, qstock);
@@ -76,7 +76,7 @@ public class GetShareByDiffParams extends VerticalLayout {
     }
 
     private void findBetween(Integer param1, Integer param2) {
-        List<Share> shares = null;
+        List<Object[]> shares = null;
         if(param1 != null && param2 != null){
             shares = shareService.getShareByCapitalizationBetween(param1, param2);
             if (shares.isEmpty()) {
@@ -91,21 +91,21 @@ public class GetShareByDiffParams extends VerticalLayout {
 
 
     private void findByStock(String param) {
-        List<Share> shares = shareService.getShareByStock(param);
+        List<Object[]> shares = shareService.getShareByStock(param);
         if (shares.isEmpty()) {
             grid.setItems(Collections.emptyList());
         } else grid.setItems(shares);
     }
 
     private void findByCountry(String param) {
-        List<Share> shares = shareService.getShareByCountry(param);
+        List<Object[]> shares = shareService.getShareByCountry(param);
         if (shares.isEmpty()) {
             grid.setItems(Collections.emptyList());
         } else grid.setItems(shares);
     }
 
     private void findByCompany(String param) {
-        List<Share> shares = shareService.getShareByNameOfCompany(param);
+        List<Object[]> shares = shareService.getShareByNameOfCompany(param);
         if (shares.isEmpty()) {
             grid.setItems(Collections.emptyList());
         } else grid.setItems(shares);
@@ -116,8 +116,13 @@ public class GetShareByDiffParams extends VerticalLayout {
 
 
     private void configureGrid() {
-        grid.addClassName("query_2_grid");
-        grid.setColumns("id", "country", "nameOfCompany", "capitalization", "stock");
+        grid.addColumn(objects -> objects[0]).setHeader("Id");
+        grid.addColumn(objects -> objects[1]).setHeader("Name");
+        grid.addColumn(objects -> objects[2]).setHeader("Cost");
+        grid.addColumn(objects -> objects[3]).setHeader("Country");
+        grid.addColumn(objects -> objects[4]).setHeader("Capitalization");
+        grid.addColumn(objects -> objects[5]).setHeader("Stock");
+
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
         setSizeFull();
     }

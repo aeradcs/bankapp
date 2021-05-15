@@ -80,7 +80,7 @@ public class CurrencyView extends VerticalLayout {
     }
     private void configureGrid() {
         grid.setSizeFull();
-        grid.setColumns("id", "country", "name");
+        grid.setColumns("id", "country", "name", "cost");
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
 
         grid.asSingleSelect().addValueChangeListener(event ->

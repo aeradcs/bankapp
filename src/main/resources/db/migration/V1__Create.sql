@@ -15,10 +15,15 @@ create table if not exists investment_account(
     constraint fk_id_client_in_invest_account_table foreign key(client_id) references client(id)
     );
 
+create table if not exists asset(
+    id bigserial primary key,
+    name text not null,
+    cost double precision
+);
+
 create table if not exists share(
     id bigserial primary key,
     country varchar(30) not null,
-    name_of_company varchar(50) not null,
     capitalization integer not null,
     stock varchar(10) not null
     );
@@ -34,8 +39,7 @@ create table if not exists investment_account_share(
 
 create table if not exists currency(
     id bigserial primary key,
-    country varchar(30) not null,
-    name varchar(50) not null
+    country varchar(30) not null
     );
 
 create table if not exists investment_account_currency(
@@ -45,11 +49,6 @@ create table if not exists investment_account_currency(
     constraint fk_id_invest_account_in_investment_account_currency_table foreign key(id_invest_account) references investment_account(id),
     constraint fk_id_currency_in_investment_account_currency_table foreign key(id_currency) references currency(id)
 
-    );
-create table if not exists asset(
-    id bigserial primary key,
-    name text not null,
-    cost double precision
     );
 
 create table if not exists bond(
@@ -69,8 +68,7 @@ create table if not exists investment_account_bond(
     );
 
 create table if not exists metal(
-    id bigserial primary key,
-    name varchar(50) not null
+    id bigserial primary key
     );
 
 create table if not exists investment_account_metal(

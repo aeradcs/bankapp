@@ -7,13 +7,16 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
+import com.vaadin.flow.data.validator.DoubleRangeValidator;
 import com.vaadin.flow.shared.Registration;
 
 public class MetalForm extends FormLayout {
     TextField name = new TextField("name");
+    NumberField cost = new NumberField("cost");
 
     Button save = new Button("save");
     Button delete = new Button("delete");
@@ -24,8 +27,12 @@ public class MetalForm extends FormLayout {
 
     public MetalForm(){
         binder.bindInstanceFields(this);
+        binder.forField(cost)
+                .withValidator(new DoubleRangeValidator("Can be only more than 0", 0.0, 100000000.0))
+                .bind(Metal::getCost, Metal::setCost);
+        binder.setBean(v);
 
-        add(name, createButtonsLayout());
+        add(name, cost, createButtonsLayout());
     }
 
     public void set(Metal v){

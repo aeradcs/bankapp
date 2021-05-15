@@ -10,6 +10,7 @@ import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.IntegerField;
+import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
@@ -22,7 +23,8 @@ import java.util.ArrayList;
 public class ShareForm extends FormLayout {
 
     TextField country = new TextField("country");
-    TextField nameOfCompany = new TextField("name of company");
+    TextField name = new TextField("name");
+    NumberField cost = new NumberField("cost");
     IntegerField capitalization = new IntegerField("capitalization");
     ComboBox<String> stock = new ComboBox<>();
 
@@ -47,15 +49,21 @@ public class ShareForm extends FormLayout {
                 .withValidator(new IntegerRangeValidator("Can be only between 0 and 1000000000000", 0, 1000000000))
                 .bind(Share::getCapitalization, Share::setCapitalization);
         binder.setBean(share);
+        binder.forField(cost)
+                .withValidator(new DoubleRangeValidator("Can be only more than 0", 0.0, 100000000.0))
+                .bind(Share::getCost, Share::setCost);
+        binder.setBean(share);
 
+        binder.forField(name).bind(Share::getName, Share::setName);
         binder.bindInstanceFields(this);
 
-        add(country, nameOfCompany, capitalization, stock, createButtonsLayout());
+        add(country, name, cost, capitalization, stock, createButtonsLayout());
     }
 
     public void setShare(Share share){
-        this.share = share;
-        binder.readBean(share);
+        /*this.share = share;
+        binder.readBean(share);*/
+        binder.setBean(share);
     }
 
     private HorizontalLayout createButtonsLayout() {
@@ -73,11 +81,14 @@ public class ShareForm extends FormLayout {
     }
 
     private void validateAndSave() {
-        try {
+        /*try {
             binder.writeBean(share);
             fireEvent(new SaveEvent(this, share));
         } catch (ValidationException e) {
             e.printStackTrace();
+        }*/
+        if (binder.isValid()) {
+            fireEvent(new SaveEvent(this, binder.getBean()));
         }
     }
 

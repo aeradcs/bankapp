@@ -17,13 +17,6 @@ public class Asset {
     private String name;
     private Double cost;
 
-    /*@ManyToMany(fetch = FetchType.EAGER, mappedBy = "assets")
-    private final Set<InvestmentAccount> investmentAccounts = new HashSet<>();*/
-
-   /* public Set<InvestmentAccount> getInvestmentAccounts() {
-        return investmentAccounts;
-    }*/
-
     public Asset(String name, Double cost) {
         this.name = name;
         this.cost = cost;

@@ -84,7 +84,7 @@ public class ShareView extends VerticalLayout {
     private void configureGrid() {
         grid.addClassName("client-grid");
         grid.setSizeFull();
-        grid.setColumns("id", "country", "nameOfCompany", "capitalization","stock");
+        grid.setColumns("id", "country", "name", "cost", "capitalization","stock");
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
 
         grid.asSingleSelect().addValueChangeListener(event ->

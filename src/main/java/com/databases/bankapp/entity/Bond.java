@@ -7,11 +7,7 @@ import java.util.Set;
 
 @Entity
 public class Bond extends Asset   {
-    /*@Id
-    @SequenceGenerator(name = "bond_sequence", sequenceName = "bond_sequence")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bond_sequence")
-    @Min(0)
-    private Long id;*/
+
 
     private String country;
     private Double percentPerYear;
@@ -31,10 +27,6 @@ public class Bond extends Asset   {
 
     }
 
-
-   /* public Long getId() {
-        return id;
-    }*/
 
     public String getCountry() {
         return country;

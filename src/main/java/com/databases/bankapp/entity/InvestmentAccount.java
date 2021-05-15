@@ -145,7 +145,7 @@ public class InvestmentAccount {
         StringBuilder str = new StringBuilder();
         Iterator<Share> it = shares.iterator();
         while (it.hasNext()) {
-            str.append(it.next().getNameOfCompany());
+            str.append(it.next().getName());
             if (it.hasNext()){
                 str.append(", ");
             }
@@ -188,6 +188,7 @@ public class InvestmentAccount {
         }
         return str.toString();
     }
+
 
 
 }

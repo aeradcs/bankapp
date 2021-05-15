@@ -28,20 +28,20 @@ public class ShareService {
         }
     }
 
-    public List<Share> getShareByStock(String param){
+    public List<Object[]> getShareByStock(String param){
         return  shareRepository.getShareByStock(param);
     }
 
-    public List<Share> getShareByCountry(String param){
+    public List<Object[]> getShareByCountry(String param){
         return  shareRepository.getShareByCountry(param);
     }
 
-    public List<Share> getShareByNameOfCompany(String param){
+    public List<Object[]> getShareByNameOfCompany(String param){
         return  shareRepository.getShareByNameOfCompany(param);
     }
 
 
-    public List<Share> getShareByCapitalizationBetween(Integer param1, Integer param2){
+    public List<Object[]> getShareByCapitalizationBetween(Integer param1, Integer param2){
         return  shareRepository.getShareByCapitalizationBetween(param1, param2);
     }
 

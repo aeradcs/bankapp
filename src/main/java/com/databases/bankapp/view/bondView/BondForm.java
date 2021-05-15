@@ -28,23 +28,23 @@ public class BondForm extends FormLayout {
     Button close = new Button("cancel");
 
     Binder<Bond> binder = new Binder<>(Bond.class);
-    //Bond bond;
+    Bond bond;
 
     public BondForm(){
         binder.forField(amountOfYears)
                 .withValidator(new IntegerRangeValidator("Can be only between 1 and 50", 1, 50))
                 .bind(Bond::getAmountOfYears, Bond::setAmountOfYears);
-        //binder.setBean(bond);
+        binder.setBean(bond);
 
         binder.forField(percentPerYear)
                 .withValidator(new DoubleRangeValidator("Can be only between 0.1 and 100", 0.1, 100.0))
                 .bind(Bond::getPercentPerYear, Bond::setPercentPerYear);
-        //binder.setBean(bond);
+        binder.setBean(bond);
 
         binder.forField(cost)
                 .withValidator(new DoubleRangeValidator("Can be only more than 0", 0.0, 100000000.0))
                 .bind(Bond::getCost, Bond::setCost);
-        //binder.setBean(bond);
+        binder.setBean(bond);
 
         binder.bindInstanceFields(this);
 

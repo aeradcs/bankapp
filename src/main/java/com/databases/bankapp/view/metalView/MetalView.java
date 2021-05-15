@@ -82,7 +82,7 @@ public class MetalView extends VerticalLayout {
     }
     private void configureGrid() {
         grid.setSizeFull();
-        grid.setColumns("id", "name");
+        grid.setColumns("id", "name", "cost");
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
 
         grid.asSingleSelect().addValueChangeListener(event ->
