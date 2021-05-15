@@ -26,6 +26,10 @@ public class DepositService {
         }
     }*/
 
+    public  List<Object[]> getDepositCountForEveryClientWhoHasIt(){
+        return depositRepository.getDepositCountForEveryClientWhoHasIt();
+    }
+
     public long count() {
         return depositRepository.count();
     }
