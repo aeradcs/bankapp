@@ -19,6 +19,7 @@ import com.vaadin.flow.shared.Registration;
 public class BondForm extends FormLayout {
     TextField country = new TextField("country");
     TextField name = new TextField("name");
+    NumberField cost = new NumberField("cost");
     IntegerField amountOfYears = new IntegerField("amount of years");
     NumberField percentPerYear = new NumberField("percent per year");
 
@@ -27,27 +28,33 @@ public class BondForm extends FormLayout {
     Button close = new Button("cancel");
 
     Binder<Bond> binder = new Binder<>(Bond.class);
-    Bond bond;
+    //Bond bond;
 
     public BondForm(){
         binder.forField(amountOfYears)
                 .withValidator(new IntegerRangeValidator("Can be only between 1 and 50", 1, 50))
                 .bind(Bond::getAmountOfYears, Bond::setAmountOfYears);
-        binder.setBean(bond);
+        //binder.setBean(bond);
 
         binder.forField(percentPerYear)
                 .withValidator(new DoubleRangeValidator("Can be only between 0.1 and 100", 0.1, 100.0))
                 .bind(Bond::getPercentPerYear, Bond::setPercentPerYear);
-        binder.setBean(bond);
+        //binder.setBean(bond);
+
+        binder.forField(cost)
+                .withValidator(new DoubleRangeValidator("Can be only more than 0", 0.0, 100000000.0))
+                .bind(Bond::getCost, Bond::setCost);
+        //binder.setBean(bond);
 
         binder.bindInstanceFields(this);
 
-        add(country, name, amountOfYears, percentPerYear, createButtonsLayout());
+        add(country, name, cost, amountOfYears, percentPerYear, createButtonsLayout());
     }
 
     public void set(Bond bond){
-        this.bond = bond;
-        binder.readBean(bond);
+        //this.bond = bond;
+        //binder.readBean(bond);
+        binder.setBean(bond);
     }
 
     private HorizontalLayout createButtonsLayout() {
@@ -56,7 +63,7 @@ public class BondForm extends FormLayout {
         close.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
 
         save.addClickListener(event -> validateAndSave());
-        delete.addClickListener(event -> fireEvent(new DeleteEvent(this, bond)));
+        delete.addClickListener(event -> fireEvent(new DeleteEvent(this, binder.getBean()/*bond*/)));
         close.addClickListener(event -> fireEvent(new CloseEvent(this)));
 
         binder.addStatusChangeListener(e -> save.setEnabled(binder.isValid()));
@@ -65,11 +72,14 @@ public class BondForm extends FormLayout {
     }
 
     private void validateAndSave() {
-        try {
+        /*try {
             binder.writeBean(bond);
             fireEvent(new SaveEvent(this, bond));
         } catch (ValidationException e) {
             e.printStackTrace();
+        }*/
+        if (binder.isValid()) {
+            fireEvent(new SaveEvent(this, binder.getBean()));
         }
     }
 

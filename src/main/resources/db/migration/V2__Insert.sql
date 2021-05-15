@@ -58,6 +58,8 @@ insert into share values(6, 'США', 'IBM', 9000000, 'SPB');
 insert into share values(7, 'Китай', 'Alibaba', 900000, 'SPB');
 insert into share values(8, 'Россия', 'TSC Group', 1000, 'MSK');
 insert into share values(9, 'Россия', 'Ozon', 1000, 'MSK');
+insert into share values(10, 'Россия', 'Sberbank', 990000, 'MSK');
+
 
 insert into currency values(1, 'Россия', 'Рубль');
 insert into currency values(2, 'Китай', 'Китайский юань');
@@ -68,17 +70,34 @@ insert into currency values(6, 'Англия', 'Фунт стрелингов');
 insert into currency values(7, 'ОАЭ', 'Дирхам');
 insert into currency values(8, 'Португалия', 'Евро');
 insert into currency values(9, 'Бразилия', 'Бразильский реал');
+insert into currency values(10, 'Франция', 'Франк');
 
 
-insert into bond values(1, 'Россия', 'ОФЗ 2222', 12, 10);
-insert into bond values(2, 'Россия', 'ОФЗ 2525', 15, 20);
-insert into bond values(3, 'Россия', 'ОФЗ 4444', 18, 15);
-insert into bond values(4, 'Россия', 'ОФЗ 8888', 8, 8);
-insert into bond values(5, 'Россия', 'ПИК', 7, 5);
-insert into bond values(6, 'Россия', 'Европлан', 5, 5);
-insert into bond values(7, 'Россия', 'АФК', 3, 5);
-insert into bond values(8, 'Россия', 'ГТЛК', 10, 12);
-insert into bond values(9, 'Россия', 'ОФЗ 1010', 6, 5);
+
+insert into bond values(1, 'Россия', 12, 10);
+insert into bond values(2, 'Россия', 15, 20);
+insert into bond values(3, 'Россия', 18, 15);
+insert into bond values(4, 'Россия', 8, 8);
+insert into bond values(5, 'Россия', 7, 5);
+insert into bond values(6, 'Россия', 5, 5);
+insert into bond values(7, 'Россия', 3, 5);
+insert into bond values(8, 'Россия', 10, 12);
+insert into bond values(9, 'Россия', 6, 5);
+insert into bond values(10, 'Россия', 5, 6);
+
+insert into asset values(1, 'ОФЗ 2222', 1000);
+insert into asset values(2, 'ОФЗ 2525', 1200);
+insert into asset values(3, 'ОФЗ 4444', 1000);
+insert into asset values(4, 'ОФЗ 8888', 1300);
+insert into asset values(5, 'ПИК', 800);
+insert into asset values(6, 'Европлан', 1800);
+insert into asset values(7, 'АФК', 1100);
+insert into asset values(8, 'ГТЛК', 2000);
+insert into asset values(9, 'ОФЗ 1010', 100);
+insert into asset values(10, 'ОФЗ 101090', 1100);
+insert into asset values(11, 'a', 1);
+insert into asset values(12, 'a', 1);
+
 
 insert into metal values(1, 'Золото');
 insert into metal values(2, 'Серебро');
@@ -89,6 +108,7 @@ insert into metal values(6, 'Свинец');
 insert into metal values(7, 'Цинк');
 insert into metal values(8, 'Никель');
 insert into metal values(9, 'Цинк');
+insert into metal values(10, 'Платина');
 
 
 insert into investment_account_share values(1, 1);

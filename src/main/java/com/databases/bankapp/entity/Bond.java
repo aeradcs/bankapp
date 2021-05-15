@@ -6,32 +6,40 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-public class Bond {
-    @Id
+public class Bond extends Asset   {
+    /*@Id
     @SequenceGenerator(name = "bond_sequence", sequenceName = "bond_sequence")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bond_sequence")
     @Min(0)
-    private Long id;
+    private Long id;*/
 
     private String country;
-    private String name;
     private Double percentPerYear;
     private Integer amountOfYears;
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "bonds")
     private final Set<InvestmentAccount> investmentAccounts = new HashSet<>();
 
-    public Long getId() {
-        return id;
+    public Bond(String country, String name, Double cost, Double percentPerYear, Integer amountOfYears) {
+        super(name, cost);
+        this.country = country;
+        this.percentPerYear = percentPerYear;
+        this.amountOfYears = amountOfYears;
     }
+
+    public Bond(){
+
+    }
+
+
+   /* public Long getId() {
+        return id;
+    }*/
 
     public String getCountry() {
         return country;
     }
 
-    public String getName() {
-        return name;
-    }
 
     public Double getPercentPerYear() {
         return percentPerYear;
@@ -49,9 +57,6 @@ public class Bond {
         this.country = country;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public void setPercentPerYear(Double percentPerYear) {
         this.percentPerYear = percentPerYear;
@@ -59,5 +64,15 @@ public class Bond {
 
     public void setAmountOfYears(Integer amountOfYears) {
         this.amountOfYears = amountOfYears;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Bond{" +
+                "country='" + country + '\'' +
+                ", percentPerYear=" + percentPerYear +
+                ", amountOfYears=" + amountOfYears +
+                '}';
     }
 }

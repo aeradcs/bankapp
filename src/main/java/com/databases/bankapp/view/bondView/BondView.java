@@ -79,7 +79,7 @@ public class BondView extends VerticalLayout {
     }
     private void configureGrid() {
         grid.setSizeFull();
-        grid.setColumns("id", "country", "name", "percentPerYear", "amountOfYears");
+        grid.setColumns("id", "country", "name", "cost", "percentPerYear", "amountOfYears");
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
 
         grid.asSingleSelect().addValueChangeListener(event ->

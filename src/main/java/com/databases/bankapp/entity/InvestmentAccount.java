@@ -36,7 +36,7 @@ public class InvestmentAccount {
             joinColumns = { @JoinColumn(name = "id_invest_account") },
             inverseJoinColumns = { @JoinColumn(name = "id_currency") }
     )
-    Set<Share> currencies = new HashSet<>();
+    Set<Currency> currencies = new HashSet<>();
 
     @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(
@@ -44,7 +44,15 @@ public class InvestmentAccount {
             joinColumns = { @JoinColumn(name = "id_invest_account") },
             inverseJoinColumns = { @JoinColumn(name = "id_bond") }
     )
-    Set<Share> bonds = new HashSet<>();
+    Set<Bond> bonds = new HashSet<>();
+
+    /*@ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "investment_account_bond",
+            joinColumns = { @JoinColumn(name = "id_invest_account") },
+            inverseJoinColumns = { @JoinColumn(name = "id_bond") }
+    )
+    Set<Asset> assets = new HashSet<>();*/
 
     @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(
@@ -52,31 +60,40 @@ public class InvestmentAccount {
             joinColumns = { @JoinColumn(name = "id_invest_account") },
             inverseJoinColumns = { @JoinColumn(name = "id_metal") }
     )
-    Set<Share> metals = new HashSet<>();
+    Set<Metal> metals = new HashSet<>();
 
-    public Set<Share> getMetals() {
-        return metals;
-    }
 
-    public void setMetals(Set<Share> metals) {
-        this.metals = metals;
-    }
-
-    public Set<Share> getCurrencies() {
-        return currencies;
-    }
-
-    public Set<Share> getBonds() {
+    public Set<Bond> getBonds() {
         return bonds;
     }
 
-    public void setCurrencies(Set<Share> currencies) {
+    public void setBonds(Set<Bond> bonds) {
+        this.bonds = bonds;
+    }
+
+    public Set<Metal> getMetals() {
+        return metals;
+    }
+
+    public void setMetals(Set<Metal> metals) {
+        this.metals = metals;
+    }
+
+    public Set<Currency> getCurrencies() {
+        return currencies;
+    }
+
+    /*public Set<Asset> getBonds() {
+        return assets;
+    }
+*/
+    public void setCurrencies(Set<Currency> currencies) {
         this.currencies = currencies;
     }
 
-    public void setBonds(Set<Share> bonds) {
-        this.bonds = bonds;
-    }
+    /*public void setBonds(Set<Asset> bonds) {
+        this.assets = bonds;
+    }*/
 
     public Long getId() {
         return id;
@@ -103,6 +120,7 @@ public class InvestmentAccount {
     public void setId(Long id) {
         this.id = id;
     }
+
 
     public void setDateOfOpening(LocalDate dateOfOpening) {
         this.dateOfOpening = dateOfOpening;
@@ -137,9 +155,9 @@ public class InvestmentAccount {
 
     public String getCurrenciesStr() {
         StringBuilder str = new StringBuilder();
-        Iterator<Share> it = currencies.iterator();
+        Iterator<Currency> it = currencies.iterator();
         while (it.hasNext()) {
-            str.append(it.next().getNameOfCompany());
+            str.append(it.next().getName());
             if (it.hasNext()){
                 str.append(", ");
             }
@@ -149,9 +167,9 @@ public class InvestmentAccount {
 
     public String getBondsStr() {
         StringBuilder str = new StringBuilder();
-        Iterator<Share> it = bonds.iterator();
+        Iterator<Bond> it = bonds.iterator();
         while (it.hasNext()) {
-            str.append(it.next().getNameOfCompany());
+            str.append(it.next().getName());
             if (it.hasNext()){
                 str.append(", ");
             }
@@ -161,9 +179,9 @@ public class InvestmentAccount {
 
     public String getMetalsStr() {
         StringBuilder str = new StringBuilder();
-        Iterator<Share> it = metals.iterator();
+        Iterator<Metal> it = metals.iterator();
         while (it.hasNext()) {
-            str.append(it.next().getNameOfCompany());
+            str.append(it.next().getName());
             if (it.hasNext()){
                 str.append(", ");
             }
@@ -171,18 +189,6 @@ public class InvestmentAccount {
         return str.toString();
     }
 
-    @Override
-    public String toString() {
-        return "InvestmentAccount{" +
-                "id=" + id +
-                ", dateOfOpening=" + dateOfOpening +
-                ", moneySum=" + moneySum +
-                ", client=" + client +
-                ", shares=" + shares +
-                ", currencies=" + currencies +
-                ", bonds=" + bonds +
-                ", metals=" + metals +
-                '}';
-    }
+
 }
 
