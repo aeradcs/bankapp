@@ -60,8 +60,8 @@ public class MainView extends AppLayout {
         RouterLink bondRL = new RouterLink("Bonds", BondView.class);
         bondRL.setHighlightCondition(HighlightConditions.sameLocation());
 
-        /*RouterLink currencyRL = new RouterLink("Currencies", CurrencyView.class);
-        currencyRL.setHighlightCondition(HighlightConditions.sameLocation());*/
+        RouterLink currencyRL = new RouterLink("Currencies", CurrencyView.class);
+        currencyRL.setHighlightCondition(HighlightConditions.sameLocation());
 
         /*RouterLink metalRL = new RouterLink("Metals", MetalView.class);
         metalRL.setHighlightCondition(HighlightConditions.sameLocation());*/
@@ -79,7 +79,7 @@ public class MainView extends AppLayout {
         q4.setHighlightCondition(HighlightConditions.sameLocation());
 
 
-        addToDrawer(new VerticalLayout(clientRL, investmentAccountRL, shareRL, depositRL, cardRL, bondRL, /*currencyRL, metalRL,*/
+        addToDrawer(new VerticalLayout(clientRL, investmentAccountRL, shareRL, depositRL, cardRL, bondRL, currencyRL,/* metalRL,*/
                 q1, q2, q3, q4));
     }
 }
