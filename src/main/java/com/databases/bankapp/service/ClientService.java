@@ -26,8 +26,12 @@ public class ClientService {
         }
     }
 
-    public List<Client> getClientsWhoHasInvestAcc(){
+    public List<Object[]> getClientsWhoHasInvestAcc(){
         return clientRepository.getClientsWhoHasInvestAcc();
+    }
+
+    public List<Object[]> getClientsWhoHasInvestAccAndSumBetween(Double param1, Double param2){
+        return clientRepository.getClientsWhoHasInvestAccAndSumBetween(param1, param2);
     }
 
     public long count() {

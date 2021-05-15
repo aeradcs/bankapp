@@ -24,11 +24,25 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 
     @Query(value =
             """
-            select * from client c   
+            select c.id as client_id, c.full_name, i.id as acc_id, i.money_sum from client c   
             join investment_account i          
             on c.id = i.client_id
             """, nativeQuery = true)
-    List<Client> getClientsWhoHasInvestAcc();
+    List<Object[]> getClientsWhoHasInvestAcc();
+
+    @Query(value =
+            """
+            select * from (
+                    select c.id as client_id, c.full_name, i.id as acc_id, i.money_sum 
+                    from client c
+                    join investment_account i          
+                    on
+                    c.id = i.client_id
+            ) new
+            where (money_sum >= :param1 and money_sum <= :param2)
+            """, nativeQuery = true)
+
+    List<Object[]> getClientsWhoHasInvestAccAndSumBetween(@Param("param1") Double param1, @Param("param2") Double param2);
 
 
 
