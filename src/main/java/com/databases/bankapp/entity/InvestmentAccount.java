@@ -30,6 +30,53 @@ public class InvestmentAccount {
     )
     Set<Share> shares = new HashSet<>();
 
+    @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "investment_account_currency",
+            joinColumns = { @JoinColumn(name = "id_invest_account") },
+            inverseJoinColumns = { @JoinColumn(name = "id_currency") }
+    )
+    Set<Share> currencies = new HashSet<>();
+
+    @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "investment_account_bond",
+            joinColumns = { @JoinColumn(name = "id_invest_account") },
+            inverseJoinColumns = { @JoinColumn(name = "id_bond") }
+    )
+    Set<Share> bonds = new HashSet<>();
+
+    @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "investment_account_metal",
+            joinColumns = { @JoinColumn(name = "id_invest_account") },
+            inverseJoinColumns = { @JoinColumn(name = "id_metal") }
+    )
+    Set<Share> metals = new HashSet<>();
+
+    public Set<Share> getMetals() {
+        return metals;
+    }
+
+    public void setMetals(Set<Share> metals) {
+        this.metals = metals;
+    }
+
+    public Set<Share> getCurrencies() {
+        return currencies;
+    }
+
+    public Set<Share> getBonds() {
+        return bonds;
+    }
+
+    public void setCurrencies(Set<Share> currencies) {
+        this.currencies = currencies;
+    }
+
+    public void setBonds(Set<Share> bonds) {
+        this.bonds = bonds;
+    }
 
     public Long getId() {
         return id;
@@ -88,6 +135,42 @@ public class InvestmentAccount {
         return str.toString();
     }
 
+    public String getCurrenciesStr() {
+        StringBuilder str = new StringBuilder();
+        Iterator<Share> it = currencies.iterator();
+        while (it.hasNext()) {
+            str.append(it.next().getNameOfCompany());
+            if (it.hasNext()){
+                str.append(", ");
+            }
+        }
+        return str.toString();
+    }
+
+    public String getBondsStr() {
+        StringBuilder str = new StringBuilder();
+        Iterator<Share> it = bonds.iterator();
+        while (it.hasNext()) {
+            str.append(it.next().getNameOfCompany());
+            if (it.hasNext()){
+                str.append(", ");
+            }
+        }
+        return str.toString();
+    }
+
+    public String getMetalsStr() {
+        StringBuilder str = new StringBuilder();
+        Iterator<Share> it = metals.iterator();
+        while (it.hasNext()) {
+            str.append(it.next().getNameOfCompany());
+            if (it.hasNext()){
+                str.append(", ");
+            }
+        }
+        return str.toString();
+    }
+
     @Override
     public String toString() {
         return "InvestmentAccount{" +
@@ -96,6 +179,9 @@ public class InvestmentAccount {
                 ", moneySum=" + moneySum +
                 ", client=" + client +
                 ", shares=" + shares +
+                ", currencies=" + currencies +
+                ", bonds=" + bonds +
+                ", metals=" + metals +
                 '}';
     }
 }

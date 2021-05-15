@@ -59,6 +59,37 @@ insert into share values(7, 'Китай', 'Alibaba', 900000, 'SPB');
 insert into share values(8, 'Россия', 'TSC Group', 1000, 'MSK');
 insert into share values(9, 'Россия', 'Ozon', 1000, 'MSK');
 
+insert into currency values(1, 'Россия', 'Рубль');
+insert into currency values(2, 'Китай', 'Китайский юань');
+insert into currency values(3, 'Япония', 'Японская иена');
+insert into currency values(4, 'Германия', 'Евро');
+insert into currency values(5, 'США', 'Доллар США');
+insert into currency values(6, 'Англия', 'Фунт стрелингов');
+insert into currency values(7, 'ОАЭ', 'Дирхам');
+insert into currency values(8, 'Португалия', 'Евро');
+insert into currency values(9, 'Бразилия', 'Бразильский реал');
+
+
+insert into bond values(1, 'Россия', 'ОФЗ 2222', 12, 10);
+insert into bond values(2, 'Россия', 'ОФЗ 2525', 15, 20);
+insert into bond values(3, 'Россия', 'ОФЗ 4444', 18, 15);
+insert into bond values(4, 'Россия', 'ОФЗ 8888', 8, 8);
+insert into bond values(5, 'Россия', 'ПИК', 7, 5);
+insert into bond values(6, 'Россия', 'Европлан', 5, 5);
+insert into bond values(7, 'Россия', 'АФК', 3, 5);
+insert into bond values(8, 'Россия', 'ГТЛК', 10, 12);
+insert into bond values(9, 'Россия', 'ОФЗ 1010', 6, 5);
+
+insert into metal values(1, 'Золото');
+insert into metal values(2, 'Серебро');
+insert into metal values(3, 'Платина');
+insert into metal values(4, 'Палладий');
+insert into metal values(5, 'Алюминий');
+insert into metal values(6, 'Свинец');
+insert into metal values(7, 'Цинк');
+insert into metal values(8, 'Никель');
+insert into metal values(9, 'Цинк');
+
 
 insert into investment_account_share values(1, 1);
 insert into investment_account_share values(1, 2);
@@ -78,7 +109,59 @@ insert into investment_account_share values(5, 6);
 insert into investment_account_share values(5, 7);
 insert into investment_account_share values(5, 8);
 
+insert into investment_account_currency values(1, 1);
+insert into investment_account_currency values(1, 2);
+insert into investment_account_currency values(1, 3);
+insert into investment_account_currency values(1, 4);
+insert into investment_account_currency values(1, 5);
+insert into investment_account_currency values(1, 6);
+insert into investment_account_currency values(1, 7);
+insert into investment_account_currency values(1, 8);
+insert into investment_account_currency values(1, 9);
+insert into investment_account_currency values(2, 3);
+insert into investment_account_currency values(2, 4);
+insert into investment_account_currency values(3, 1);
+insert into investment_account_currency values(4, 1);
+insert into investment_account_currency values(5, 5);
+insert into investment_account_currency values(5, 6);
+insert into investment_account_currency values(5, 7);
+insert into investment_account_currency values(5, 8);
 
+insert into investment_account_bond values(1, 1);
+insert into investment_account_bond values(1, 2);
+insert into investment_account_bond values(1, 3);
+insert into investment_account_bond values(1, 4);
+insert into investment_account_bond values(1, 5);
+insert into investment_account_bond values(1, 6);
+insert into investment_account_bond values(1, 7);
+insert into investment_account_bond values(1, 8);
+insert into investment_account_bond values(1, 9);
+insert into investment_account_bond values(2, 3);
+insert into investment_account_bond values(2, 4);
+insert into investment_account_bond values(3, 1);
+insert into investment_account_bond values(4, 1);
+insert into investment_account_bond values(5, 5);
+insert into investment_account_bond values(5, 6);
+insert into investment_account_bond values(5, 7);
+insert into investment_account_bond values(5, 8);
+
+insert into investment_account_metal values(1, 1);
+insert into investment_account_metal values(1, 2);
+insert into investment_account_metal values(1, 3);
+insert into investment_account_metal values(1, 4);
+insert into investment_account_metal values(1, 5);
+insert into investment_account_metal values(1, 6);
+insert into investment_account_metal values(1, 7);
+insert into investment_account_metal values(1, 8);
+insert into investment_account_metal values(1, 9);
+insert into investment_account_metal values(2, 3);
+insert into investment_account_metal values(2, 4);
+insert into investment_account_metal values(3, 1);
+insert into investment_account_metal values(4, 1);
+insert into investment_account_metal values(5, 5);
+insert into investment_account_metal values(5, 6);
+insert into investment_account_metal values(5, 7);
+insert into investment_account_metal values(5, 8);
 
 insert into deposit values(1, 1, '2020-02-02', '2023-02-02', 1000, 5.5, 1, 1);
 insert into deposit values(2, 1, '2019-02-02', '2024-02-02', 10000, 7, 1, 1);

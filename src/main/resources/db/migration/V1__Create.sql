@@ -32,6 +32,52 @@ create table if not exists investment_account_share(
 
     );
 
+create table if not exists currency(
+    id bigserial primary key,
+    country varchar(30) not null,
+    name varchar(50) not null
+    );
+
+create table if not exists investment_account_currency(
+    id_invest_account bigserial not null,
+    id_currency bigserial not null,
+    constraint pk_investment_account_currency primary key(id_invest_account, id_currency),
+    constraint fk_id_invest_account_in_investment_account_currency_table foreign key(id_invest_account) references investment_account(id),
+    constraint fk_id_currency_in_investment_account_currency_table foreign key(id_currency) references currency(id)
+
+    );
+
+create table if not exists bond(
+    id bigserial primary key,
+    country varchar(30) not null,
+    name varchar(50) not null,
+    percent_per_year double precision not null,
+    amount_of_years integer not null
+    );
+
+create table if not exists investment_account_bond(
+    id_invest_account bigserial not null,
+    id_bond bigserial not null,
+    constraint pk_investment_account_bond primary key(id_invest_account, id_bond),
+    constraint fk_id_invest_account_in_investment_account_bond_table foreign key(id_invest_account) references investment_account(id),
+    constraint fk_id_bond_in_investment_account_bond_table foreign key(id_bond) references bond(id)
+
+    );
+
+create table if not exists metal(
+    id bigserial primary key,
+    name varchar(50) not null
+    );
+
+create table if not exists investment_account_metal(
+    id_invest_account bigserial not null,
+    id_metal bigserial not null,
+    constraint pk_investment_account_metal primary key(id_invest_account, id_metal),
+    constraint fk_id_invest_account_in_investment_account_metal_table foreign key(id_invest_account) references investment_account(id),
+    constraint fk_id_metal_in_investment_account_metal_table foreign key(id_metal) references metal(id)
+
+    );
+
 create table if not exists deposit(
     id bigserial primary key,
     client_id bigserial not null ,
@@ -51,3 +97,4 @@ create table if not exists card(
     money_sum double precision not null,
     constraint fk_id_client_in_card_table foreign key(client_id) references client(id)
     );
+
