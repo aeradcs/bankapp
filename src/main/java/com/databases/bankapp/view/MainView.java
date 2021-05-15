@@ -4,6 +4,8 @@ import com.databases.bankapp.view.cardView.CardView;
 import com.databases.bankapp.view.clientView.ClientView;
 import com.databases.bankapp.view.depositView.DepositView;
 import com.databases.bankapp.view.investmentAccountView.InvestmentAccountView;
+import com.databases.bankapp.view.queries.FindCardByDiffParams;
+import com.databases.bankapp.view.queries.FindClientsWhoHasInvestAcc;
 import com.databases.bankapp.view.queries.GetShareByDiffParams;
 import com.databases.bankapp.view.shareView.ShareView;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -54,6 +56,13 @@ public class MainView extends AppLayout {
         RouterLink q1 = new RouterLink("Get Shares By Diff Params", GetShareByDiffParams.class);
         q1.setHighlightCondition(HighlightConditions.sameLocation());
 
-        addToDrawer(new VerticalLayout(clientRL, investmentAccountRL, shareRL, depositRL, cardRL, q1));
+        RouterLink q2 = new RouterLink("Get Cards By Diff Params", FindCardByDiffParams.class);
+        q2.setHighlightCondition(HighlightConditions.sameLocation());
+
+        RouterLink q3 = new RouterLink("Get Clients Who Has Invest Acc", FindClientsWhoHasInvestAcc.class);
+        q3.setHighlightCondition(HighlightConditions.sameLocation());
+
+        addToDrawer(new VerticalLayout(clientRL, investmentAccountRL, shareRL, depositRL, cardRL,
+                q1, q2, q3));
     }
 }

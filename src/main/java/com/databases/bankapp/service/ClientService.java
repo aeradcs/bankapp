@@ -26,6 +26,10 @@ public class ClientService {
         }
     }
 
+    public List<Client> getClientsWhoHasInvestAcc(){
+        return clientRepository.getClientsWhoHasInvestAcc();
+    }
+
     public long count() {
         return clientRepository.count();
     }

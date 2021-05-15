@@ -1,6 +1,7 @@
 package com.databases.bankapp.service;
 
 import com.databases.bankapp.entity.Card;
+import com.databases.bankapp.entity.Share;
 import com.databases.bankapp.repository.CardRepository;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,11 @@ public class CardService {
     public List<Card> findAll() {
         return cardRepository.findAll();
     }
+
+    public List<Card> getCardByMoneySumBetween(Integer param1, Integer param2){
+        return  cardRepository.getCardByMoneySumBetween(param1, param2);
+    }
+
 
     public long count() {
         return cardRepository.count();

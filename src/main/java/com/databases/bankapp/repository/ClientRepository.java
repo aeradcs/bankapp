@@ -1,6 +1,7 @@
 package com.databases.bankapp.repository;
 
 
+import com.databases.bankapp.entity.Card;
 import com.databases.bankapp.entity.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -19,6 +20,15 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
             "where lower(c.fullName) like lower(concat('%', :searchTerm, '%')) " +
             "or lower(c.fullName) like lower(concat('%', :searchTerm, '%'))")
     List<Client> search(@Param("searchTerm") String searchTerm);
+
+
+    @Query(value =
+            """
+            select * from client c   
+            join investment_account i          
+            on c.id = i.client_id
+            """, nativeQuery = true)
+    List<Client> getClientsWhoHasInvestAcc();
 
 
 
