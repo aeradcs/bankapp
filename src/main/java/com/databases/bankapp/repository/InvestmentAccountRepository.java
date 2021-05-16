@@ -13,4 +13,33 @@ public interface InvestmentAccountRepository extends JpaRepository<InvestmentAcc
     @Query("select t from InvestmentAccount t " +
             "where lower(t.id) like lower(concat('%', :searchTerm, '%'))")
     List<InvestmentAccount> search(@Param("searchTerm") String searchTerm);
+
+
+    @Query(value =
+            """
+            
+            select c.id as client_id, c.full_name, count(i.client_id) as count
+            from client c
+            join investment_account i          
+            on
+            c.id = i.client_id
+            group by c.id
+            having (count(i.client_id) >= :param1 and count(i.client_id) <= :param2)
+            order by count asc
+            """, nativeQuery = true)
+    List<Object[]> getInvAccCountBetweenForEveryClientWhoHasItAsc(@Param("param1") Integer param1, @Param("param2") Integer param2);
+
+    @Query(value =
+            """
+            
+            select c.id as client_id, c.full_name, count(i.client_id) as count
+            from client c
+            join investment_account i          
+            on
+            c.id = i.client_id
+            group by c.id
+            having (count(i.client_id) >= :param1 and count(i.client_id) <= :param2)
+            order by count desc
+            """, nativeQuery = true)
+    List<Object[]> getInvAccCountBetweenForEveryClientWhoHasItDesc(@Param("param1") Integer param1, @Param("param2") Integer param2);
 }

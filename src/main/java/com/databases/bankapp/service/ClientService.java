@@ -14,6 +14,10 @@ public class ClientService {
         this.clientRepository = clientRepository;
     }
 
+    public List<Object[]> getClientsWhoHasntDepositAndHasntCard(){
+        return clientRepository.getClientsWhoHasntDepositAndHasntCard();
+    }
+
     public List<Client> findAll() {
         return clientRepository.findAll();
     }

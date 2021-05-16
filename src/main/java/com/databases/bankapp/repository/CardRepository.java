@@ -11,7 +11,11 @@ import java.util.List;
 public interface CardRepository extends JpaRepository<Card, Long> {
 
     @Query(value =
-            "select * from Card a where (a.money_sum >= :param1 and a.money_sum <= :param2)", nativeQuery = true)
-    List<Card> getCardByMoneySumBetween(@Param("param1") Integer param1, @Param("param2") Integer param2);
+            "select * from Card a where (a.money_sum >= :param1 and a.money_sum <= :param2) order by a.money_sum asc", nativeQuery = true)
+    List<Card> getCardByMoneySumBetweenAsc(@Param("param1") Integer param1, @Param("param2") Integer param2);
+
+    @Query(value =
+            "select * from Card a where (a.money_sum >= :param1 and a.money_sum <= :param2) order by a.money_sum desc", nativeQuery = true)
+    List<Card> getCardByMoneySumBetweenDesc(@Param("param1") Integer param1, @Param("param2") Integer param2);
 
 }

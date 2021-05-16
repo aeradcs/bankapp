@@ -17,10 +17,12 @@ public class CardService {
         return cardRepository.findAll();
     }
 
-    public List<Card> getCardByMoneySumBetween(Integer param1, Integer param2){
-        return  cardRepository.getCardByMoneySumBetween(param1, param2);
+    public List<Card> getCardByMoneySumBetweenAsc(Integer param1, Integer param2){
+        return  cardRepository.getCardByMoneySumBetweenAsc(param1, param2);
     }
-
+    public List<Card> getCardByMoneySumBetweenDesc(Integer param1, Integer param2){
+        return  cardRepository.getCardByMoneySumBetweenDesc(param1, param2);
+    }
 
     public long count() {
         return cardRepository.count();

@@ -46,6 +46,43 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 
 
 
-
+    @Query(value =
+            """
+            
+                    
+            select acc_id, currency_id, c_name 
+            from(
+                    select i.id as acc_id, c.id as currency_id, a.name as c_name
+                    from investment_account i
+                    
+                    full outer join investment_account_currency ic
+                    on i.id=ic.id_invest_account
+                    full outer join currency c
+                    on c.id = ic.id_currency
+                    left join asset a
+                    on
+                    c.id = a.id
+                    order by i.id) main
+                    
+            where acc_id not in(
+                                select i.id as acc_id
+                                from investment_account i
+                                join investment_account_currency ic
+                                on i.id=ic.id_invest_account
+                                join currency c
+                                on c.id = ic.id_currency
+                                ) 
+            or currency_id not in (
+                                select c.id as currency_id
+                                from investment_account i
+                                join investment_account_currency ic
+                                on i.id=ic.id_invest_account
+                                join currency c
+                                on c.id = ic.id_currency
+                                ) 
+                    
+            
+            """, nativeQuery = true)
+    List<Object[]> getClientsWhoHasntDepositAndHasntCard();
 
 }

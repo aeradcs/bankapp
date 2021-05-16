@@ -7,10 +7,7 @@ import com.databases.bankapp.view.currencyView.CurrencyView;
 import com.databases.bankapp.view.depositView.DepositView;
 import com.databases.bankapp.view.investmentAccountView.InvestmentAccountView;
 import com.databases.bankapp.view.metalView.MetalView;
-import com.databases.bankapp.view.queries.FindCardByDiffParams;
-import com.databases.bankapp.view.queries.FindClientsWhoHasInvestAcc;
-import com.databases.bankapp.view.queries.FindDepositCountForEveryClientWhoHasIt;
-import com.databases.bankapp.view.queries.GetShareByDiffParams;
+import com.databases.bankapp.view.queries.*;
 import com.databases.bankapp.view.shareView.ShareView;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
@@ -72,14 +69,19 @@ public class MainView extends AppLayout {
         RouterLink q2 = new RouterLink("Get Cards By Diff Params", FindCardByDiffParams.class);
         q2.setHighlightCondition(HighlightConditions.sameLocation());
 
-        RouterLink q3 = new RouterLink("Get Clients Who Has Invest Acc", FindClientsWhoHasInvestAcc.class);
+        RouterLink q3 = new RouterLink("Get Clients Who Has Invest Acc With Sum On Between", FindClientsWhoHasInvestAcc.class);
         q3.setHighlightCondition(HighlightConditions.sameLocation());
 
-        RouterLink q4 = new RouterLink("Get Clients Who Has Deposit Acc And Count", FindDepositCountForEveryClientWhoHasIt.class);
+        RouterLink q4 = new RouterLink("Get Clients Who Has Deposit And Count", FindDepositCountForEveryClientWhoHasIt.class);
         q4.setHighlightCondition(HighlightConditions.sameLocation());
 
+        RouterLink q5 = new RouterLink("Get Currencies And Accounts That Are Not Used", FindClientsWhoHasntDepositAndHasntCard.class);
+        q5.setHighlightCondition(HighlightConditions.sameLocation());
+
+        RouterLink q6 = new RouterLink("Get Clients Who Has Invest Acc And Count Between", FindInvAccCountBetweenForEveryClientWhoHasIt.class);
+        q6.setHighlightCondition(HighlightConditions.sameLocation());
 
         addToDrawer(new VerticalLayout(clientRL, investmentAccountRL, shareRL, depositRL, cardRL, bondRL, currencyRL, metalRL,
-                q1, q2, q3, q4));
+                q1, q2, q3, q4, q5, q6));
     }
 }

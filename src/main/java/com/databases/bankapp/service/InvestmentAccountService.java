@@ -6,6 +6,7 @@ import com.databases.bankapp.repository.ClientRepository;
 import com.databases.bankapp.repository.InvestmentAccountRepository;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
 @Service
@@ -19,6 +20,14 @@ public class InvestmentAccountService {
     /*public List<InvestmentAccount> findAll() {
         return investmentAccountRepository.findAll();
     }*/
+
+    public List<Object[]> getInvAccCountBetweenForEveryClientWhoHasItAsc(Integer param1, Integer param2){
+        return investmentAccountRepository.getInvAccCountBetweenForEveryClientWhoHasItAsc(param1, param2);
+    }
+
+    public List<Object[]> getInvAccCountBetweenForEveryClientWhoHasItDesc(Integer param1, Integer param2){
+        return investmentAccountRepository.getInvAccCountBetweenForEveryClientWhoHasItDesc(param1, param2);
+    }
 
     public List<InvestmentAccount> findAll(String filterText) {
         if (filterText == null || filterText.isEmpty()) {
