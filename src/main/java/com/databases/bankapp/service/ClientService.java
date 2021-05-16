@@ -14,6 +14,46 @@ public class ClientService {
         this.clientRepository = clientRepository;
     }
 
+    public List<Client> sortByNameDesc(){
+        return clientRepository.sortByNameDecs();
+    }
+
+    public List<Client> sortByNameAsc(){
+        return clientRepository.sortByNameAsc();
+    }
+
+    public List<Client> sortByGenderDesc(){
+        return clientRepository.sortByGenderDecs();
+    }
+
+    public List<Client> sortByGenderAsc(){
+        return clientRepository.sortByGenderAcs();
+    }
+
+    public List<Client> sortByDateDesc(){
+        return clientRepository.sortByDateDecs();
+    }
+
+    public List<Client> sortByDateAsc(){
+        return clientRepository.sortByDateAsc();
+    }
+
+    public List<Client> sortByJobDesc(){
+        return clientRepository.sortByJobDecs();
+    }
+
+    public List<Client> sortByJobAsc(){
+        return clientRepository.sortByJobAcs();
+    }
+
+    public List<Client> sortByPhoneDesc(){
+        return clientRepository.sortByPhoneDecs();
+    }
+
+    public List<Client> sortByPhoneAsc(){
+        return clientRepository.sortByPhoneAcs();
+    }
+
     public List<Object[]> getClientsWhoHasntDepositAndHasntCard(){
         return clientRepository.getClientsWhoHasntDepositAndHasntCard();
     }

@@ -22,10 +22,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 @Route(value="clients", layout = MainView.class)
@@ -38,6 +35,9 @@ public class ClientView extends VerticalLayout {
     private final Grid<Client> grid;
     private final ClientService clientService;
     private final ClientForm clientForm;
+
+    ComboBox<String> sort = new ComboBox<>();
+
 
     public ClientView(ClientService clientService)
     {
@@ -102,10 +102,155 @@ public class ClientView extends VerticalLayout {
         Button addClientButton = new Button("Add Сlient");
         addClientButton.addClickListener(click -> addClient());
 
-        HorizontalLayout toolbar = new HorizontalLayout(addClientButton);
+        ArrayList<String> items = new ArrayList<>();
+        items.add("asc");
+        items.add("desc");
+
+        sort.setItems(items);
+        sort.setPlaceholder("sort");
+
+        Button nameb = new Button("Sort By Name",
+                click -> sortByName(sort.getValue()));
+
+        Button genderb = new Button("Sort By Gender",
+                click -> sortByGender(sort.getValue()));
+
+        Button dateb = new Button("Sort By Date Of Birth",
+                click -> sortByDate(sort.getValue()));
+
+        Button jobb = new Button("Sort By Job Status",
+                click -> sortByJob(sort.getValue()));
+
+        Button phoneb = new Button("Sort By Phone Number",
+                click -> sortByPhone(sort.getValue()));
+
+
+        HorizontalLayout toolbar = new HorizontalLayout(addClientButton, sort,
+                nameb, genderb, dateb, jobb, phoneb);
         toolbar.addClassName("toolbar");
         return toolbar;
     }
+
+    private void sortByPhone(String sort) {
+        if(sort.equals("asc")){
+            List<Client> cards = null;
+
+            cards = clientService.sortByPhoneAsc();
+            if (cards.isEmpty()) {
+                grid.setItems(Collections.emptyList());
+            } else grid.setItems(cards);
+
+        }
+        else if(sort.equals("desc")){
+            List<Client> cards = null;
+
+            cards = clientService.sortByPhoneDesc();
+            if (cards.isEmpty()) {
+                grid.setItems(Collections.emptyList());
+            } else grid.setItems(cards);
+
+        }
+        else {
+            grid.setItems(Collections.emptyList());
+        }
+    }
+
+    private void sortByJob(String sort) {
+        if(sort.equals("asc")){
+            List<Client> cards = null;
+
+            cards = clientService.sortByJobAsc();
+            if (cards.isEmpty()) {
+                grid.setItems(Collections.emptyList());
+            } else grid.setItems(cards);
+
+        }
+        else if(sort.equals("desc")){
+            List<Client> cards = null;
+
+            cards = clientService.sortByJobDesc();
+            if (cards.isEmpty()) {
+                grid.setItems(Collections.emptyList());
+            } else grid.setItems(cards);
+
+        }
+        else {
+            grid.setItems(Collections.emptyList());
+        }
+    }
+
+    private void sortByDate(String sort) {
+        if(sort.equals("asc")){
+            List<Client> cards = null;
+
+            cards = clientService.sortByDateAsc();
+            if (cards.isEmpty()) {
+                grid.setItems(Collections.emptyList());
+            } else grid.setItems(cards);
+
+        }
+        else if(sort.equals("desc")){
+            List<Client> cards = null;
+
+            cards = clientService.sortByDateDesc();
+            if (cards.isEmpty()) {
+                grid.setItems(Collections.emptyList());
+            } else grid.setItems(cards);
+
+        }
+        else {
+            grid.setItems(Collections.emptyList());
+        }
+    }
+
+    private void sortByGender(String sort) {
+        if(sort.equals("asc")){
+            List<Client> cards = null;
+
+            cards = clientService.sortByGenderAsc();
+            if (cards.isEmpty()) {
+                grid.setItems(Collections.emptyList());
+            } else grid.setItems(cards);
+
+        }
+        else if(sort.equals("desc")){
+            List<Client> cards = null;
+
+            cards = clientService.sortByGenderDesc();
+            if (cards.isEmpty()) {
+                grid.setItems(Collections.emptyList());
+            } else grid.setItems(cards);
+
+        }
+        else {
+            grid.setItems(Collections.emptyList());
+        }
+    }
+
+    private void sortByName(String sort){
+        if(sort.equals("asc")){
+            List<Client> cards = null;
+
+            cards = clientService.sortByNameAsc();
+            if (cards.isEmpty()) {
+                grid.setItems(Collections.emptyList());
+            } else grid.setItems(cards);
+
+        }
+        else if(sort.equals("desc")){
+            List<Client> cards = null;
+
+            cards = clientService.sortByNameDesc();
+            if (cards.isEmpty()) {
+                grid.setItems(Collections.emptyList());
+            } else grid.setItems(cards);
+
+        }
+        else {
+            grid.setItems(Collections.emptyList());
+        }
+    }
+
 
     void addClient() {
         grid.asSingleSelect().clear();

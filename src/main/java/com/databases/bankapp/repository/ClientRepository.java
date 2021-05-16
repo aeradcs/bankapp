@@ -85,4 +85,44 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
             """, nativeQuery = true)
     List<Object[]> getClientsWhoHasntDepositAndHasntCard();
 
+
+    @Query(value =
+            "select * from Client a order by a.full_name desc", nativeQuery = true)
+    List<Client> sortByNameDecs();
+
+    @Query(value =
+            "select * from Client a order by a.full_name asc", nativeQuery = true)
+    List<Client> sortByNameAsc();
+
+    @Query(value =
+            "select * from Client a order by a.gender desc", nativeQuery = true)
+    List<Client> sortByGenderDecs();
+
+    @Query(value =
+            "select * from Client a order by a.gender asc", nativeQuery = true)
+    List<Client> sortByGenderAcs();
+
+    @Query(value =
+            "select * from Client a order by a.date_of_birth desc", nativeQuery = true)
+    List<Client> sortByDateDecs();
+
+    @Query(value =
+            "select * from Client a order by a.date_of_birth asc", nativeQuery = true)
+    List<Client> sortByDateAsc();
+
+    @Query(value =
+            "select * from Client a order by a.job_status desc", nativeQuery = true)
+    List<Client> sortByJobDecs();
+
+    @Query(value =
+            "select * from Client a order by a.job_status asc", nativeQuery = true)
+    List<Client> sortByJobAcs();
+
+    @Query(value =
+            "select * from Client a order by a.phone_number desc", nativeQuery = true)
+    List<Client> sortByPhoneDecs();
+
+    @Query(value =
+            "select * from Client a order by a.phone_number asc", nativeQuery = true)
+    List<Client> sortByPhoneAcs();
 }
