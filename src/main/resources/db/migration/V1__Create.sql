@@ -101,3 +101,7 @@ create table if not exists card(
     );
 
 
+create table if not exists trig_card(
+    card_added text,
+    time_added timestamp without time zone
+);
